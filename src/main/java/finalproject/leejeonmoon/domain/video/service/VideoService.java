@@ -2,6 +2,7 @@ package finalproject.leejeonmoon.domain.video.service;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfInt;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 import org.springframework.core.io.InputStreamResource;
@@ -26,7 +27,7 @@ public class VideoService {
         Mat frame = new Mat();
         if (camera.read(frame)) {
             MatOfByte matOfByte = new MatOfByte();
-            Imgcodecs.imencode(".jpg", frame, matOfByte);
+            Imgcodecs.imencode(".jpg", frame, matOfByte, new MatOfInt(Imgcodecs.IMWRITE_JPEG_QUALITY, 30)); // 품질을 50으로 설정
 
             byte[] frameBytes = matOfByte.toArray();
             InputStream inputStream = new ByteArrayInputStream(frameBytes);
