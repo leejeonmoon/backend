@@ -1,0 +1,84 @@
+.login-content {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.login-content h2 {
+    font-size: 36px;
+    color: var(--colors-heading);
+}
+
+.google-login {
+    margin-top: 30px;
+}
+
+.google-login button {
+    background-color: #ffffff;
+    border: 1px solid var(--colors-grey);
+    padding: 15px;
+    width: 300px;
+    font-size: 16px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-login button img {
+    width: 24px;
+    margin-right: 10px;
+}
+
+.divider {
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--colors-text);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--colors-grey);
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+form button {
+    width: 300px;
+    padding: 15px;
+    background-color: var(--action-primary);
+    color: var(--colors-white);
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+.links {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.links a {
+    color: var(--action-primary);
+    text-decoration: none;
+}
+
+.image-placeholder {
+    margin-top: 50px;
+    text-align: center;
+    border: 1px solid var(--colors-grey);
+    width: 400px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}

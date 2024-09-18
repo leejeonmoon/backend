@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}">Default Title</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<header th:fragment="header">
+    <div class="logo">
+        <h1>IP CAM 이름/웹 사이트 이름</h1>
+    </div>
+    <nav>
+        <ul class="menu">
+            <li><a th:href="@{/}" th:classappend="${page == 'home'} ? 'active' : ''">Home</a></li>
+            <li><a th:href="@{/streaming}" th:classappend="${page == 'streaming'} ? 'active' : ''">Streaming</a></li>
+            <li><a th:href="@{/video}" th:classappend="${page == 'video'} ? 'active' : ''">Video</a></li>
+            <li><a th:href="@{/report}" th:classappend="${page == 'report'} ? 'active' : ''">Report</a></li>
+        </ul>
+    </nav>
+    <div class="auth">
+        <button class="signup" id="signupBtn">회원가입</button>
+        <button class="login" onclick="window.location.href='/login'">Login</button>
+    </div>
+</header>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>회원가입</h2>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

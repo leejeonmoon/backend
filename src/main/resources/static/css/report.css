@@ -1,0 +1,55 @@
+.report-section {
+    padding: 50px;
+    font-family: "Poppins-Regular", sans-serif;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--colors-heading, #1e0e62);
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--colors-heading, #1e0e62);
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+ul li a {
+    color: var(--action-primary, #25dac5);
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+.radio-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.chart {
+    margin-top: 30px;
+}
+
+.chart img {
+    width: 100%;
+    max-width: 700px;
+}
