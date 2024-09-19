@@ -2,6 +2,9 @@ package finalproject.leejeonmoon.domain.member.entity;
 
 import finalproject.leejeonmoon.global.BaseTimeEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,13 +21,18 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+    @Column(name = "member_id", updatable = false)
+    private Long memberId;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", length = 50, unique = true)
+    @NotNull
+    @Email
+    @NotBlank
     private String email;
 
     @Column(name = "password")
+    @NotNull
+    @NotBlank
     private String password;
 
 //    // 10장 OAuth2: 관련 키 저장
@@ -32,9 +40,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
 //    private String nickname;
 
     @Builder
-    public Member(String email, String password, String nickname) {
+    public Member(String email, String encodedPassword) {
         this.email = email;
-        this.password = password;
+        this.password = encodedPassword;
 //        this.nickname = nickname; // 10장: 생성자에 추가
     }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 기본 템플릿을 확장 -->
+    <title th:text="'Login - IP Cam'">Login - IP Cam</title>
+
+    <!-- 추가적인 CSS 파일 -->
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+
+<div class="login-content">
+    <h2>Log In. Stay Protected.</h2>
+
+    <div class="google-login">
+        <button>
+            <img th:src="@{/images/google-logo.png}" alt="Google Logo" />
+            <span>Sign in with Google</span>
+        </button>
+    </div>
+
+    <div class="divider">or</div>
+
+    <form th:action="@{/login}" method="post">
+        <input type="email" placeholder="Your email" name="email" />
+        <input type="password" placeholder="Your password" name="password" />
+        <button type="submit">Sign In</button>
+    </form>
+
+    <div class="links">
+        <a th:href="@{/find-id}">아이디 찾기</a> |
+        <a th:href="@{/find-password}">비밀번호 찾기</a> |
+        <a th:href="@{/signup}">회원가입</a>
+    </div>
+</div>
+
+<div class="image-placeholder">적당한 사진</div>
+
+</body>
+</html>
