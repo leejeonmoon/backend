@@ -7,7 +7,8 @@ import finalproject.leejeonmoon.domain.member.repository.MemberRepository;
 import finalproject.leejeonmoon.global.exception.CustomException;
 import finalproject.leejeonmoon.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     public void signUp(SignUpRequestDto requestDto) {
         if (existsByEmail(requestDto.email())) {
@@ -26,8 +27,22 @@ public class MemberService {
             throw new CustomException(ErrorCode.PASSWORD_MISMATCH);
         }
         //Member 객체 생성 후 저장
-        Member member = requestDto.toEntity(encodePassword(requestDto.password()));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Member member = requestDto.toEntity(encoder.encode(requestDto.password()));
         memberRepository.save(member);
+    }
+
+    @Transactional(readOnly = true)
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    // 10장: OAuth, 이메일을 입력받아 유저를 찾음
+    @Transactional(readOnly = true)
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(ErrorCode.EMAIL_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
@@ -35,8 +50,7 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
-
-    public String encodePassword(String password){
-        return passwordEncoder.encode(password);
-    }
+//    public String encodePassword(String password){
+//        return passwordEncoder.encode(password);
+//    }
 }
