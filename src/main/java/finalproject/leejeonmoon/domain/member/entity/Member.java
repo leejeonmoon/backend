@@ -35,21 +35,28 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @NotBlank
     private String password;
 
-//    // 10장 OAuth2: 관련 키 저장
-//    @Column(name = "nickname", unique = true)
-//    private String nickname;
+    // 10장 OAuth2: 관련 키 저장
+    @Column(name = "nickname", unique = true)
+    private String nickname;
 
     @Builder
-    public Member(String email, String encodedPassword) {
+    public Member(String email, String encodedPassword, String nickname) {
         this.email = email;
         this.password = encodedPassword;
-//        this.nickname = nickname; // 10장: 생성자에 추가
+        this.nickname = nickname; // 10장: OAuth2
     }
 
     @Override //권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities(){
         return List.of(new SimpleGrantedAuthority("user"));
     }
+
+    // 10장: 사용자 이름 변경
+    public Member update(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
     // 사용자의 id를 반환
     @Override
     public String getUsername() {
