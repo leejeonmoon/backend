@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head">
+    <title>Streaming - IP Cam</title>
+
+    <!-- extra_css block -->
+    <link rel="stylesheet" th:href="@{/css/streaming.css}">
+</head>
+<body>
+<header th:replace="base :: header"></header>
+
+<main class="streaming-section">
+    <h2>Streaming with IP cam 이름</h2>
+
+    <div class="video-stream">
+        <video id="stream" width="640" height="360" controls>
+            <!-- 임시 비디오 URL -->
+            <source th:src="@{https://www.w3schools.com/html/mov_bbb.mp4}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="controls">
+        <button id="play">재생</button>
+        <button id="pause">멈춤</button>
+        <button id="rotate-left">좌회전</button>
+        <button id="rotate-right">우회전</button>
+        <button id="rotate-up">위회전</button>
+        <button id="rotate-down">아래회전</button>
+    </div>
+</main>
+<script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>
