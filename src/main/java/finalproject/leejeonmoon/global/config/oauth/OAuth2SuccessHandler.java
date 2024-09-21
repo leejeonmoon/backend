@@ -6,6 +6,7 @@ import finalproject.leejeonmoon.domain.member.repository.RefreshTokenRepository;
 import finalproject.leejeonmoon.domain.member.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import finalproject.leejeonmoon.global.util.CookieUtil;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final MemberService memberService;
 
     @Override // SimpleUrlAuthenticationSuccessHandler 오버라이드
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Member user = memberService.findByEmail((String) oAuth2User.getAttributes().get("email"));
         // 10장: 리프레시 토큰 생성 -> 저장 -> 쿠키에 저장
