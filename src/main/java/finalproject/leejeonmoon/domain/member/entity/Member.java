@@ -30,20 +30,23 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @NotBlank
     private String email;
 
-    @Column(name = "password")
-    @NotNull
-    @NotBlank
-    private String password;
+//    @Column(name = "password")
+//    @NotNull
+//    @NotBlank
+//    private String password;
 
-    // 10장 OAuth2: 관련 키 저장
-    @Column(name = "nickname", unique = true)
+
+    @Column(name = "nickname", unique = true) // 10장 OAuth2: 관련 키 저장
     private String nickname;
 
+    @Column(name = "provider")  // OAuth2 사용자인지 구분하기 위한 필드
+    private String provider;
+
     @Builder
-    public Member(String email, String encodedPassword, String nickname) {
+    public Member(String email, String nickname, String provider) {
         this.email = email;
-        this.password = encodedPassword;
-        this.nickname = nickname; // 10장: OAuth2
+        this.nickname = nickname;
+        this.provider = provider;
     }
 
     @Override //권한 반환
@@ -65,7 +68,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     // 사용자의 패스워드 반환
     @Override
     public String getPassword() {
-        return password;
+        return null;
     }
     // 계정 만료 여부 반환
     @Override

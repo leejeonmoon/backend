@@ -16,9 +16,9 @@ import java.util.Map;
 public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
 
+    // 구글로부터 받은 userRequest 데이터를 후처리하는 함수
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        // 요청을 바탕으로 유저 정보를 담은 객체 변환
         OAuth2User user = super.loadUser(userRequest);
         saveOrUpdate(user);
         return user;
@@ -36,7 +36,11 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
                 .orElse(Member.builder()
                         .email(email)
                         .nickname(name)
+                        .provider("google")
                         .build());
         return memberRepository.save(member);
     }
+
+
+
 }

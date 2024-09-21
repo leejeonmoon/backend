@@ -22,13 +22,13 @@ public class MemberService {
         if (existsByEmail(requestDto.email())) {
             throw new IllegalArgumentException("이미 존재하는 email입니다." + requestDto.email());
         }
-        //비밀번호 일치 검사
-        if (!requestDto.password().equals(requestDto.confirmPassword())) {
-            throw new CustomException(ErrorCode.PASSWORD_MISMATCH);
-        }
+//        //비밀번호 일치 검사
+//        if (!requestDto.password().equals(requestDto.confirmPassword())) {
+//            throw new CustomException(ErrorCode.PASSWORD_MISMATCH);
+//        }
         //Member 객체 생성 후 저장
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Member member = requestDto.toEntity(encoder.encode(requestDto.password()));
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Member member = requestDto.toEntity();
         memberRepository.save(member);
     }
 
