@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-    // 토큰 필더 구현하기
+    // 토큰 필터 구현하기
 
     private final TokenProvider tokenProvider;
 
@@ -27,7 +27,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain)  throws ServletException, IOException {
 
-        // 요청 해더의 Authorization 키의 값 조회
+        // 요청 헤더의 Authorization 키의 값 조회
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         String token = getAccessToken(authorizationHeader);
         // 가져온 키에서 접두사 제거

@@ -21,7 +21,7 @@ public class MemberApiController {
     private final MemberService memberService;
 
     /* 회원가입 기능 */
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDto requestDto) {
         memberService.signUp(requestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
