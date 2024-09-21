@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="base :: head"></head> <!-- base.html의 head 프래그먼트 명확히 참조 -->
+<body>
+<header th:replace="base :: header"></header> <!-- base.html의 header 프래그먼트 명확히 참조 -->
+<div class="main-content">
+    <h2>Start with oauth IP Cam 이름</h2>
+    <div class="buttons">
+        <button id="move-video-btn">Move to my video</button>
+        <button id="recorded-video-btn">Recorded video</button>
+    </div>
+</div>
+<script th:src="@{/js/oauth.js}"></script>
+<script th:src="@{/js/token.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 페이지가 로드되었을 때 특정 요청을 보내려면 여기에 추가
+        httpRequest('GET', '/oauthIndex', null, function() {
+        });
+
+        document.getElementById('move-video-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작 막음
+            httpRequest('GET', '/streaming', null, function() {
+                location.href = '/streaming'; // 요청 성공 시 페이지 이동
+            }, function() {
+                alert('스트리밍 페이지로 이동 실패');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
