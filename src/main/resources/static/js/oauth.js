@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 // HTTP 요청을 보내는 함수
 function httpRequest(method, url, body, success, fail) {
     const accessToken = localStorage.getItem('access_token'); // localStorage에서 토큰 가져오기
@@ -28,9 +27,19 @@ function httpRequest(method, url, body, success, fail) {
     }).then(response => {
         if (response.status === 200 || response.status === 201) {
             return success();
+        } else if (response.status === 302) {
+            // 302 상태 코드인 경우 Location 헤더를 통해 리다이렉션 수행
+            const redirectUrl = response.headers.get('Location');
+            if (redirectUrl) {
+                console.log('Redirecting to: ' + redirectUrl);
+                window.location.href = redirectUrl;
+            } else {
+                console.log('No location header found for redirect.');
+                return fail();
+            }
         } else if (response.status === 401) {
             console.log('Unauthorized: ' + response.statusText);
-            return fail();
+            window.location.href = "/login";
         } else {
             return fail();
         }
@@ -39,5 +48,3 @@ function httpRequest(method, url, body, success, fail) {
         return fail();
     });
 }
-
-
