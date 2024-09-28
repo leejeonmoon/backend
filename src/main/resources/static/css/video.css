@@ -1,0 +1,177 @@
+.video-archive {
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.date-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#select-date-btn {
+    padding: 10px 20px;
+    background-color: var(--action-primary);
+    color: var(--colors-white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#select-date-btn:hover {
+    background-color: #1ca69b;
+}
+
+#date-picker {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.no-video-message {
+    font-size: 20px;
+    color: var(--colors-text);
+    margin-top: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* 높이를 조정하여 화면 가운데 정렬 */
+}
+
+.video-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 비디오 썸네일이 한 줄에 배치 */
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+.video-thumbnail {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-thumbnail p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: var(--colors-text);
+}
+
+.video-thumbnail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 비디오 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 700px;
+    width: 80%;
+}
+
+.modal-content video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.modal-content .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: #000;
+}
+/* Select Date 버튼 스타일 */
+.btn-mint {
+    background-color: var(--action-primary);
+    color: var(--colors-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.btn-mint:hover {
+    background-color: #1ca69b;
+}
+
+.flatpickr-calendar {
+    position: absolute !important; /* 팝업을 절대 위치로 설정 */
+    top: 292px !important; /* 버튼 아래에 위치하도록 설정 */
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto; /* 가운데 정렬 */
+    transform: none !important; /* 위치 조정 */
+    z-index: 9999; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.flatpickr-input {
+    display: none; /* Flatpickr 입력 상자는 숨김 */
+}
