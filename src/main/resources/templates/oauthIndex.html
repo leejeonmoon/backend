@@ -8,6 +8,7 @@
     <div class="buttons">
         <button id="move-video-btn">Move to my video</button>
         <button id="recorded-video-btn">Recorded video</button>
+        <button id= "alarm-btn">Alarm page</button>
     </div>
 </div>
 <script th:src="@{/js/oauth.js}"></script>
@@ -32,6 +33,14 @@
             event.preventDefault(); // 기본 동작 막음
             httpRequest('GET', '/video', null, function() {
                 location.href = '/video'; // 요청 성공 시 페이지 이동
+            }, function() {
+            });
+        });
+
+        document.getElementById('alarm-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작 막음
+            httpRequest('GET', '/notification', null, function() {
+                location.href = '/notification'; // 요청 성공 시 페이지 이동
             }, function() {
             });
         });

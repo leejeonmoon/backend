@@ -36,6 +36,8 @@ public class MemberApiController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("/login"));
         // 302 Found 상태 코드로 리다이렉트 응답 반환
+//        response.addCookie(dto.getAccessToken());
+//        response.addCookie(dto.getRefreshToken());
         return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
     }
 
