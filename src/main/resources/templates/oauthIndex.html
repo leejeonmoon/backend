@@ -4,7 +4,7 @@
 <body>
 <header th:replace="base :: header"></header> <!-- base.html의 header 프래그먼트 명확히 참조 -->
 <div class="main-content">
-    <h2>Start with oauth IP Cam 이름</h2>
+    <h2>Start with oauth IP Cam <span th:text="${nickname}"></span></h2>
     <div class="buttons">
         <button id="move-video-btn">Move to my video</button>
         <button id="recorded-video-btn">Recorded video</button>
@@ -25,7 +25,14 @@
             httpRequest('GET', '/streaming', null, function() {
                 location.href = '/streaming'; // 요청 성공 시 페이지 이동
             }, function() {
-                alert('스트리밍 페이지로 이동 실패');
+            });
+        });
+
+        document.getElementById('recorded-video-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작 막음
+            httpRequest('GET', '/video', null, function() {
+                location.href = '/video'; // 요청 성공 시 페이지 이동
+            }, function() {
             });
         });
     });
