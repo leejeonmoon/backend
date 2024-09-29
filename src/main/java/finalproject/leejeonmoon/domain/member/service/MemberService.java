@@ -8,6 +8,8 @@ import finalproject.leejeonmoon.global.exception.CustomException;
 import finalproject.leejeonmoon.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,4 +55,13 @@ public class MemberService {
 //    public String encodePassword(String password){
 //        return passwordEncoder.encode(password);
 //    }
+    @Transactional(readOnly = true)
+    public Member getCurrentMember() throws CustomException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = memberRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_AUTHENTICATED));
+        return member;
+    }
+
+
 }

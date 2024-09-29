@@ -57,11 +57,12 @@ public class WebOAuthSecurityConfig {
         // 커스텀 필터 추가 (헤더를 확인하는 필터)
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        // 인증 설정
+// 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/token").permitAll()
-                .requestMatchers("/api/**").authenticated()
-                .anyRequest().permitAll()
+                        .requestMatchers("/firebase-messaging-sw.js").permitAll()
+                        .requestMatchers("/notification/**", "/authenticated","/oauthIndex", "/video","/streaming", "/api/token", "/", "/index", "/signup", "/login").permitAll() // 인증 없이 접근 가능
+                        .requestMatchers("/streaming").authenticated() // 로그인한 사용자만 접근 가능
+                        .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요 (이 부분은 필요에 따라 추가 가능)
         );
 
         // OAuth2 로그인 설정
@@ -70,10 +71,7 @@ public class WebOAuthSecurityConfig {
                 .authorizationEndpoint(authorization -> authorization
                         .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 )
-                .successHandler((request, response, authentication) -> {
-                    // 로그인 성공 후 index.html로 리다이렉트
-                    response.sendRedirect("/index.html");
-                })
+                .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserCustomService))
         );
 
@@ -82,13 +80,14 @@ public class WebOAuthSecurityConfig {
                 .logoutSuccessUrl("/login")
         );
 
-        // /api로 시작하는 URL에 대해 401 상태 코드 반환
+        // 인증되지 않은 사용자가 접근할 경우 401 상태 코드 반환
         http.exceptionHandling(exceptionHandling ->
                 exceptionHandling.defaultAuthenticationEntryPointFor(
                         new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-                        new AntPathRequestMatcher("/api/**")
+                        new AntPathRequestMatcher("/**") // 모든 요청에 대해 인증되지 않은 경우
                 )
         );
+
 
         return http.build();
     }
@@ -99,12 +98,6 @@ public class WebOAuthSecurityConfig {
                 refreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
                 memberService) {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                Authentication authentication) throws IOException, ServletException {
-                // 로그인 성공 시 index.html로 리다이렉트
-                response.sendRedirect("/index.html");
-            }
         };
     }
 

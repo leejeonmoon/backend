@@ -21,7 +21,7 @@ public class MemberApiController {
     private final MemberService memberService;
 
     /* 회원가입 기능 */
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDto requestDto) {
         memberService.signUp(requestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -36,6 +36,8 @@ public class MemberApiController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("/login"));
         // 302 Found 상태 코드로 리다이렉트 응답 반환
+//        response.addCookie(dto.getAccessToken());
+//        response.addCookie(dto.getRefreshToken());
         return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
     }
 

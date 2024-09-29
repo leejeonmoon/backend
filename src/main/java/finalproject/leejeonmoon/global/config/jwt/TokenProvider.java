@@ -72,4 +72,10 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    public String getLoginUserEmail(String token) {
+        Claims claims = getClaims(token);
+        return claims.getSubject(); // 이메일은 subject로 저장되어 있다고 가정
+    }
+
 }
