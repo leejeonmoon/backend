@@ -33,10 +33,6 @@ public class Notification {
         this.token = token;
     }
 
-    public void updateToken(String newToken) {
-        this.token = newToken;
-    }
-
     public void confirmUser(Member member) {
         this.member = member;
     }

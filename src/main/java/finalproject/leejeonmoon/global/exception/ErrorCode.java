@@ -16,8 +16,8 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(400, "입력값이 잘못되었습니다."),
     MISSING_PARAMETER(400, "필수 파라미터가 누락되었습니다."),
     // 비밀번호, 비밀번호 확인이 서로 불일치
-    PASSWORD_MISMATCH(400, "비밀번호가 일치하지 않습니다."),
-    DUPLICATE_NOTIFICATION_TOKEN(400, "notification token이 중복되었습니다."),
+    PASSWORD_MISMATCH(400, "confirmPassword:비밀번호가 일치하지 않습니다."),
+
 
     // 401 Unauthorized
     // 로그인 상태여야 하는 요청
@@ -29,9 +29,7 @@ public enum ErrorCode {
 
     // 404 Not Found
     MEMBER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
-    EMAIL_NOT_FOUND(404, "이메일로 사용자를 찾을 수 없습니다")
-
-    ;
+    EMAIL_NOT_FOUND(404, "이메일로 사용자를 찾을 수 없습니다");
 
 
     private final int status;

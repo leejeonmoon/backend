@@ -8,6 +8,4 @@ import java.util.Optional;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long>  {
     Optional<Object> findByMember(Member member);
-
-    boolean existsByToken(String token);
 }
