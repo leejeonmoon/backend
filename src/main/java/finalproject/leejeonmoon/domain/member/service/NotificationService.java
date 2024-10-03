@@ -28,15 +28,28 @@ public class NotificationService {
 
     @Transactional
     public void saveNotification(String token) {
-//        Member member = memberService.findByEmail(tokenProvider.getLoginUserEmail(token));
         Member member = memberService.getCurrentMember();
-        Notification notification = Notification.builder()
-                .token(token)
-                .build();
+        // 해당 memberId로 이미 Notification이 존재하는지 확인
+        Notification existingNotification = (Notification) notificationRepository.findByMember(member)
+                .orElse(null);
 
-        notification.confirmUser(member);
-        notificationRepository.save(notification);
+        if (existingNotification != null) {
+            // 기존 토큰을 새로운 토큰으로 업데이트
+            existingNotification.updateToken(token);
+            notificationRepository.save(existingNotification); // 변경된 내용 저장
+        } else {
+            // 새로운 Notification 객체를 생성하고 저장
+            Notification notification = Notification.builder()
+                    .token(token)
+                    .build();
+            notification.confirmUser(member);
+            notificationRepository.save(notification);
+        }
     }
+
+//    private boolean existsByToken(String token) {
+//        return notificationRepository.existsByToken(token);
+//    }
 
     public String getNotificationToken() {
         Member member = memberService.getCurrentMember();
