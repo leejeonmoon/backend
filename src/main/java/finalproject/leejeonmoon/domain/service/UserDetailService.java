@@ -1,7 +1,7 @@
-package finalproject.leejeonmoon.domain.member.service;
+package finalproject.leejeonmoon.domain.service;
 
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.repository.MemberRepository;
+import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;

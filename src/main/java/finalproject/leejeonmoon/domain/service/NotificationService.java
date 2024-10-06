@@ -1,13 +1,13 @@
-package finalproject.leejeonmoon.domain.member.service;
+package finalproject.leejeonmoon.domain.service;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import finalproject.leejeonmoon.domain.member.dto.NotificationRequestDto;
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.entity.Notification;
+import finalproject.leejeonmoon.domain.dto.NotificationRequestDto;
+import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.entity.Notification;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
-import finalproject.leejeonmoon.domain.member.repository.NotificationRepository;
+import finalproject.leejeonmoon.domain.repository.NotificationRepository;
 import finalproject.leejeonmoon.global.exception.CustomException;
 import finalproject.leejeonmoon.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -74,4 +74,5 @@ public class NotificationService {
         String response = FirebaseMessaging.getInstance().sendAsync(message).get();
         log.info(">>>>Send message : " + response);
     }
+
 }

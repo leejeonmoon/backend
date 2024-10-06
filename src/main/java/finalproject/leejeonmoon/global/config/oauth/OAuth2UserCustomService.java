@@ -1,8 +1,8 @@
 package finalproject.leejeonmoon.global.config.oauth;
 
-import finalproject.leejeonmoon.domain.member.entity.Member;
+import finalproject.leejeonmoon.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
-import finalproject.leejeonmoon.domain.member.repository.MemberRepository;
+import finalproject.leejeonmoon.domain.repository.MemberRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

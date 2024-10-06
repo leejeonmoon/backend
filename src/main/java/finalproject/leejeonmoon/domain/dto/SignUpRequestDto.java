@@ -1,6 +1,6 @@
-package finalproject.leejeonmoon.domain.member.dto;
+package finalproject.leejeonmoon.domain.dto;
 
-import finalproject.leejeonmoon.domain.member.entity.Member;
+import finalproject.leejeonmoon.domain.entity.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

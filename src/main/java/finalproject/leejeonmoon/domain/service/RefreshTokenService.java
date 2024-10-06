@@ -1,7 +1,7 @@
-package finalproject.leejeonmoon.domain.member.service;
+package finalproject.leejeonmoon.domain.service;
 
-import finalproject.leejeonmoon.domain.member.entity.RefreshToken;
-import finalproject.leejeonmoon.domain.member.repository.RefreshTokenRepository;
+import finalproject.leejeonmoon.domain.entity.RefreshToken;
+import finalproject.leejeonmoon.domain.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

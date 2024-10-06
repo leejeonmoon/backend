@@ -1,4 +1,4 @@
-package finalproject.leejeonmoon.domain.member.dto;
+package finalproject.leejeonmoon.domain.dto;
 
 public record CreateAccessTokenRequestDto(
         String refreshToken) {

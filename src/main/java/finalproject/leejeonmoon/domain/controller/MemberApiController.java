@@ -1,9 +1,9 @@
-package finalproject.leejeonmoon.domain.member.controller;
+package finalproject.leejeonmoon.domain.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import finalproject.leejeonmoon.domain.member.dto.SignUpRequestDto;
-import finalproject.leejeonmoon.domain.member.service.MemberService;
+import finalproject.leejeonmoon.domain.dto.SignUpRequestDto;
+import finalproject.leejeonmoon.domain.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

@@ -1,10 +1,9 @@
-package finalproject.leejeonmoon.domain.member.entity;
+package finalproject.leejeonmoon.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CollectionIdJdbcTypeCode;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

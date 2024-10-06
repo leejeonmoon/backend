@@ -1,28 +1,18 @@
-package finalproject.leejeonmoon.domain.member.controller;
+package finalproject.leejeonmoon.domain.controller;
 
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.service.MemberService;
+import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
-import finalproject.leejeonmoon.global.exception.CustomException;
-import finalproject.leejeonmoon.global.exception.ErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @Controller

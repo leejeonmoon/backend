@@ -1,8 +1,7 @@
-package finalproject.leejeonmoon.domain.member.service;
+package finalproject.leejeonmoon.domain.service;
 
-import finalproject.leejeonmoon.domain.member.dto.CreateAccessTokenRequestDto;
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.entity.RefreshToken;
+import finalproject.leejeonmoon.domain.dto.CreateAccessTokenRequestDto;
+import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

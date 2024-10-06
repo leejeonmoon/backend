@@ -1,16 +1,15 @@
-package finalproject.leejeonmoon.domain.member.service;
+package finalproject.leejeonmoon.domain.service;
 
 
-import finalproject.leejeonmoon.domain.member.dto.SignUpRequestDto;
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.repository.MemberRepository;
+import finalproject.leejeonmoon.domain.dto.SignUpRequestDto;
+import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.repository.MemberRepository;
 import finalproject.leejeonmoon.global.exception.CustomException;
 import finalproject.leejeonmoon.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

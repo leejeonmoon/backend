@@ -1,8 +1,7 @@
-package finalproject.leejeonmoon.domain.member.controller;
+package finalproject.leejeonmoon.domain.controller;
 
-import finalproject.leejeonmoon.domain.member.dto.CreateAccessTokenRequestDto;
-import finalproject.leejeonmoon.domain.member.dto.CreateAccessTokenResponseDto;
-import finalproject.leejeonmoon.domain.member.service.TokenService;
+import finalproject.leejeonmoon.domain.dto.CreateAccessTokenRequestDto;
+import finalproject.leejeonmoon.domain.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

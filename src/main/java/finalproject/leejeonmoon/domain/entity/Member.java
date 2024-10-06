@@ -1,4 +1,4 @@
-package finalproject.leejeonmoon.domain.member.entity;
+package finalproject.leejeonmoon.domain.entity;
 
 import finalproject.leejeonmoon.global.BaseTimeEntity;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
-package finalproject.leejeonmoon.domain.member.repository;
+package finalproject.leejeonmoon.domain.repository;
 
-import finalproject.leejeonmoon.domain.member.entity.RefreshToken;
+import finalproject.leejeonmoon.domain.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
