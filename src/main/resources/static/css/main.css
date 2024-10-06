@@ -12,29 +12,36 @@
     margin-top: 30px;
 }
 
-.main-content .buttons a {
-    display: block;
-    margin: 10px auto;
-    padding: 15px 40px;
-    background-color: var(--action-primary);
-    color: var(--colors-white);
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 18px;
+.main-content .buttons button { /* 기존 a 태그 대신 button 태그에 스타일 적용 */
+    display: block !important;
+    margin: 10px auto !important;
+    padding: 15px 20px !important;
+    background-color: var(--action-primary) !important;
+    color: var(--colors-white) !important;
+    border-radius: 40px !important;
+    text-decoration: none !important;
+    font-size: 18px !important;
+    width: 50% !important;
+    max-width: 300px !important;
 }
 
-.main-content .buttons a:hover {
-    background-color: #1ca69b;
+.main-content .buttons button:hover { /* hover 상태일 때의 스타일 적용 */
+    background-color: #1ca69b !important;
 }
 
 .recorded-link {
-    font-size: 14px;
-    color: var(--action-primary);
-    margin-top: 10px;
     display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: var(--colors-heading);
+    text-decoration: none;
+    text-align: center;
 }
 
-.main-content .buttons a {
+.recorded-link:hover {
+    color: var(--action-primary);
+}
+.custom-btn {
     display: block;
     margin: 10px auto;
     padding: 15px 20px;
@@ -45,18 +52,9 @@
     font-size: 18px;
     width: 50%;
     max-width: 300px;
+    text-align: center;
 }
 
-.recorded-link {
-    display: block;
-    margin-top: 10px;
-    font-size: 16px;
-    color: var(--colors-heading);
-    text-decoration: none;
-    text-align: center; 
+.custom-btn:hover {
+    background-color: #1ca69b;
 }
-
-.recorded-link:hover {
-    color: var(--action-primary);
-}
-
