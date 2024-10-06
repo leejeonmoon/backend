@@ -16,6 +16,10 @@ public class Alarm extends BaseTimeEntity {
     @Column(name = "alarm_id", updatable = false)
     private Long alarmId;
 
+    @ManyToOne(fetch = FetchType.LAZY) // 다대일 관계 설정
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Enumerated(EnumType.STRING)
     private AlarmType type;
 
