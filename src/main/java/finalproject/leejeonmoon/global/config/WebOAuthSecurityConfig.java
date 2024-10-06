@@ -1,29 +1,23 @@
 package finalproject.leejeonmoon.global.config;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import finalproject.leejeonmoon.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import finalproject.leejeonmoon.global.config.oauth.OAuth2SuccessHandler;
 import finalproject.leejeonmoon.global.config.oauth.OAuth2UserCustomService;
-import finalproject.leejeonmoon.domain.member.repository.RefreshTokenRepository;
-import finalproject.leejeonmoon.domain.member.service.MemberService;
+import finalproject.leejeonmoon.domain.repository.RefreshTokenRepository;
+import finalproject.leejeonmoon.domain.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.io.IOException;
 
 @RequiredArgsConstructor
 @Configuration

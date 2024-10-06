@@ -1,9 +1,9 @@
 package finalproject.leejeonmoon.global.config.oauth;
 
-import finalproject.leejeonmoon.domain.member.entity.Member;
-import finalproject.leejeonmoon.domain.member.entity.RefreshToken;
-import finalproject.leejeonmoon.domain.member.repository.RefreshTokenRepository;
-import finalproject.leejeonmoon.domain.member.service.MemberService;
+import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.entity.RefreshToken;
+import finalproject.leejeonmoon.domain.repository.RefreshTokenRepository;
+import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import finalproject.leejeonmoon.global.util.CookieUtil;
 import jakarta.servlet.ServletException;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
