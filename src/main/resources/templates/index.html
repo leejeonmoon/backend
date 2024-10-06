@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="base :: head"></head> <!-- base.html의 head 프래그먼트 명확히 참조 -->
+<head th:replace="~{base :: head}"></head> <!-- base.html의 head 프래그먼트 명확히 참조 -->
 <body>
-<header th:replace="base :: header"></header> <!-- base.html의 header 프래그먼트 명확히 참조 -->
+<header th:replace="~{base :: header}"></header> <!-- base.html의 header 프래그먼트 명확히 참조 -->
 <div class="main-content">
     <h2>Start with IP Cam 이름</h2>
     <div class="buttons">
