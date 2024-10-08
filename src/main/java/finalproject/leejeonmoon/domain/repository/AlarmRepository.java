@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
     List<Alarm> findByMember(Member member);
-    List<Alarm> findByReceiverOrderByCreatedTimeDesc(Member receiver);
-    Boolean existsByReceiverAndIsReadFalse(Member member);
-    void deleteAllBySender(Member member);
-    void deleteAllByReceiver(Member member);
+    List<Alarm> findByMemberOrderByCreatedTimeDesc(Member receiver);
+//    Boolean existsByReceiverAndIsReadFalse(Member member);
+//    void deleteAllBySender(Member member);
+//    void deleteAllByReceiver(Member member);
 }

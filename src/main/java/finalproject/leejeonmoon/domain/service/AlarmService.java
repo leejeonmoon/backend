@@ -54,7 +54,7 @@ public class AlarmService {
         List<SseUnitDto> alarmList = new ArrayList<>();
         Member currentMember = memberService.getCurrentMember();
         // 전체 알림을 받아옴
-        List<Alarm> alarms = alarmRepository.findByReceiverOrderByCreatedTimeDesc(currentMember);
+        List<Alarm> alarms = alarmRepository.findByMemberOrderByCreatedTimeDesc(currentMember);
         if (alarms != null && !alarms.isEmpty()) {
             for (Alarm alarm : alarms) {
                 // 알림 유형에 따라 메시지를 생성
