@@ -1,33 +1,45 @@
+/* 메인 콘텐츠 중앙 정렬 */
 .main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* 헤더 높이를 제외한 나머지 화면에서 중앙 정렬 */
     text-align: center;
-    margin-top: 100px;
+    margin: 0 auto;
 }
 
+/* 제목 스타일 */
 .main-content h2 {
     font-size: 48px;
     color: var(--colors-heading);
 }
 
+/* 버튼 컨테이너 */
 .main-content .buttons {
     margin-top: 30px;
 }
 
-.main-content .buttons button { /* 기존 a 태그 대신 button 태그에 스타일 적용 */
-    display: block !important;
-    margin: 10px auto !important;
-    padding: 15px 20px !important;
-    background-color: var(--action-primary) !important;
-    color: var(--colors-white) !important;
-    border-radius: 40px !important;
-    text-decoration: none !important;
-    font-size: 18px !important;
-    width: 50% !important;
-    max-width: 300px !important;
+/* a 태그를 버튼처럼 스타일링 */
+.main-content .buttons a {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 15px 20px;
+    background-color: var(--action-primary);
+    color: var(--colors-white);
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 18px;
+    width: 50%;
+    max-width: 300px;
+    text-align: center;
 }
 
-.main-content .buttons button:hover { /* hover 상태일 때의 스타일 적용 */
-    background-color: #1ca69b !important;
+/* 버튼 hover 상태 */
+.main-content .buttons a:hover {
+    background-color: #1ca69b;
 }
+
 
 .recorded-link {
     display: block;
