@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head"></head> <!-- base.html의 head 프래그먼트 명확히 참조 -->
+<head th:replace="base :: head"></head>
 <body>
-<header th:replace="base :: header"></header> <!-- base.html의 header 프래그먼트 명확히 참조 -->
+<header th:replace="base :: header"></header>
 
 <div class="main-content">
-    <h2>Start with oauth IP Cam <span th:text="${nickname}"></span></h2>
+    <h2>Stored Videos</h2>
 
-    <div class="buttons">
-        <button id="move-video-btn">Move to my video</button>
-        <button id="recorded-video-btn">Recorded video</button>
+    <div class="date-selector">
+        <p>Today's Date: <span id="current-date" th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"></span></p>
+        <button id="select-date-btn" class="btn-mint">Select Date</button>
+        <input type="text" id="date-picker" class="flatpickr-input" style="display: none;" readonly>
     </div>
 
-    <main class="video-archive">
-        <h2>Stored Videos</h2>
-
-        <div class="date-selector">
-            <p>Today's Date: <span id="current-date" th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"></span></p>
-            <button id="select-date-btn" class="btn-mint">Select Date</button>
-            <input type="text" id="date-picker" class="flatpickr-input" style="display: none;" readonly>
-        </div>
-
-        <div id="video-list" class="video-list">
-            <!-- JavaScript로 날짜 선택 시 비디오 목록이 추가됨 -->
-        </div>
-    </main>
+    <div id="video-list" class="video-list">
+        <!-- 타임리프로 비디오 목록을 동적으로 생성 -->
+    </div>
 </div>
 
 <div id="videoModal" class="modal">
@@ -45,10 +36,47 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // 페이지가 로드되었을 때 특정 요청을 보내려면 여기에 추가
-        httpRequest('GET', '/authenticated', null, function(response) {
-            console.log("성공 응답: " + response);
+        const videoList = document.getElementById('video-list');
+
+        // 날짜 선택 기능 설정 (flatpickr 이용)
+        flatpickr("#date-picker", {
+            onChange: function(selectedDates, dateStr) {
+                // 선택된 날짜에 맞는 비디오 목록을 새로 고침
+                fetchRecordedVideos(dateStr);
+            }
         });
+
+        // 날짜에 따른 비디오 목록 불러오기
+        function fetchRecordedVideos(date) {
+            // Flask 서버에서 해당 날짜에 맞는 비디오 목록을 가져오는 API 호출
+            fetch(`http://<Raspberry Pi IP>:8080/videos?date=${date}`)
+                .then(response => response.json())
+                .then(videos => {
+                    videoList.innerHTML = ''; // 기존 목록 초기화
+                    if (videos.length === 0) {
+                        videoList.innerHTML = '<p>No videos found for the selected date.</p>';
+                    } else {
+                        videos.forEach(video => {
+                            const videoItem = document.createElement('div');
+                            videoItem.classList.add('video-thumbnail');
+                            videoItem.innerHTML = `
+                                <img src="${video.thumbnail}" alt="video thumbnail">
+                                <p>${video.name}</p>
+                                <a href="${video.url}" target="_blank">Watch</a>
+                            `;
+                            videoList.appendChild(videoItem);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching videos:', error);
+                    videoList.innerHTML = '<p>Error loading videos.</p>';
+                });
+        }
+
+        // 페이지 로드 시 오늘 날짜의 비디오 목록을 불러옴
+        const today = new Date().toISOString().split('T')[0];
+        fetchRecordedVideos(today);
     });
 </script>
 
