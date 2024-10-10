@@ -6,6 +6,10 @@
     <title th:text="${title}">IP CAM 이름/웹 사이트 이름</title>
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/video.css}" />
+    <link rel="stylesheet" th:href="@{/css/streaming.css}" />
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script th:src="@{/js/modal.js}"></script>
 </head>
 <body>
@@ -46,6 +50,8 @@
 
 <!-- JavaScript -->
 <script th:src="@{/js/modal.js}"></script>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <th:block th:replace="${extra_js}"></th:block>
 </body>
 </html>
