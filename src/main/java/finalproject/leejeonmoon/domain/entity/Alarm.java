@@ -40,7 +40,8 @@ public class Alarm extends BaseTimeEntity {
     }
 
     @Builder
-    public Alarm(AlarmType type,String title, String content, LocalDateTime createdDate, Boolean isRead) {
+    public Alarm(Member member, AlarmType type,String title, String content, LocalDateTime createdDate, Boolean isRead) {
+        this.member = member;
         this.type = type;
         this.title = title;
         this.content = content;

@@ -40,6 +40,7 @@ public class AlarmService {
         Member member = memberService.getCurrentMember();
         String content = MessageFormat.format(AlarmType.TEST.getMessagePattern(), "테스트 데이터");
         Alarm alarm = Alarm.builder()
+                .member(member)
                 .type(AlarmType.TEST)
                 .title("테스트 알림")
                 .content(content)
@@ -50,7 +51,7 @@ public class AlarmService {
     }
 
     // 전체 알림을 조회하고 읽은 상태로 변경하는 메서드
-    private List<SseUnitDto> getAndReadAlarms() {
+    public List<SseUnitDto> getAndReadAlarms() {
         List<SseUnitDto> alarmList = new ArrayList<>();
         Member currentMember = memberService.getCurrentMember();
         // 전체 알림을 받아옴
