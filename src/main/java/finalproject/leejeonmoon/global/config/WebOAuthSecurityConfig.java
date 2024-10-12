@@ -44,7 +44,7 @@ public class WebOAuthSecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:8080", "https://api.leejeonmoon.p-e.kr/"));
+                "http://localhost:8080", "https://api.leejeonmoon.p-e.kr"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -72,7 +72,12 @@ public class WebOAuthSecurityConfig {
         // 커스텀 필터 추가 (헤더를 확인하는 필터)
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-// 인증 설정
+        // HTTPS 강제 설정 추가
+        http.requiresChannel(channel -> channel
+                .anyRequest().requiresSecure()
+        );
+        
+        // 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/firebase-messaging-sw.js").permitAll()
                         .requestMatchers("/alarms/**", "/api/**", "/notification/**", "/authenticated","/oauthIndex", "/video","/streaming", "/api/token", "/", "/index", "/signup", "/login").permitAll() // 인증 없이 접근 가능
@@ -86,6 +91,7 @@ public class WebOAuthSecurityConfig {
                 .authorizationEndpoint(authorization -> authorization
                         .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 )
+                .redirectionEndpoint(redirection -> redirection.baseUri("/login/oauth2/code/*"))
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserCustomService))
         );
