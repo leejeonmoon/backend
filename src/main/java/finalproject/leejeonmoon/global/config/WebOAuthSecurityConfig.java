@@ -59,6 +59,7 @@ public class WebOAuthSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF, HTTP Basic, 폼 로그인, 로그아웃 비활성화 (토큰 인증 방식 사용)
         http
+                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
@@ -72,11 +73,6 @@ public class WebOAuthSecurityConfig {
         // 커스텀 필터 추가 (헤더를 확인하는 필터)
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        // HTTPS 강제 설정 추가
-        http.requiresChannel(channel -> channel
-                .anyRequest().requiresSecure()
-        );
-        
         // 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/firebase-messaging-sw.js").permitAll()
