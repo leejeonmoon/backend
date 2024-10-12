@@ -64,6 +64,7 @@ public class WebOAuthSecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .logout(logout -> logout.disable());
+        
 
         // 세션을 사용하지 않고, Stateless 방식으로 설정
         http.sessionManagement(sessionManagement ->
