@@ -59,7 +59,7 @@ public class WebOAuthSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF, HTTP Basic, 폼 로그인, 로그아웃 비활성화 (토큰 인증 방식 사용)
         http
-                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+//                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
@@ -84,10 +84,10 @@ public class WebOAuthSecurityConfig {
         // OAuth2 로그인 설정
         http.oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
-                .authorizationEndpoint(authorization -> authorization
-                        .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
-                )
-                .redirectionEndpoint(redirection -> redirection.baseUri("/login/oauth2/code/*"))
+//                .authorizationEndpoint(authorization -> authorization
+//                        .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
+//                )
+                .redirectionEndpoint(redirection -> redirection.baseUri("/login/oauth2/code/**"))
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserCustomService))
         );
