@@ -18,6 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
@@ -35,13 +41,30 @@ public class WebOAuthSecurityConfig {
     }
 
     @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:8080", "https://api.leejeonmoon.p-e.kr"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF, HTTP Basic, 폼 로그인, 로그아웃 비활성화 (토큰 인증 방식 사용)
         http
+//                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .logout(logout -> logout.disable());
+        
 
         // 세션을 사용하지 않고, Stateless 방식으로 설정
         http.sessionManagement(sessionManagement ->
@@ -51,7 +74,7 @@ public class WebOAuthSecurityConfig {
         // 커스텀 필터 추가 (헤더를 확인하는 필터)
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-// 인증 설정
+        // 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/firebase-messaging-sw.js").permitAll()
                         .requestMatchers("/alarms/**", "/api/**", "/notification/**", "/authenticated","/oauthIndex", "/video","/streaming", "/api/token", "/", "/index", "/signup", "/login").permitAll() // 인증 없이 접근 가능
@@ -62,9 +85,10 @@ public class WebOAuthSecurityConfig {
         // OAuth2 로그인 설정
         http.oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
-                .authorizationEndpoint(authorization -> authorization
-                        .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
-                )
+//                .authorizationEndpoint(authorization -> authorization
+//                        .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
+//                )
+                .redirectionEndpoint(redirection -> redirection.baseUri("/login/oauth2/code/**"))
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserCustomService))
         );
