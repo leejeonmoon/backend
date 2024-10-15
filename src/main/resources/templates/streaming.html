@@ -12,7 +12,7 @@
 
     <!-- 실시간 이미지 스트림 -->
     <div class="video-stream">
-        <img id="stream" src="http://10.240.189.150:8881/video_feed" width="640" height="360" alt="Live Stream Video" />
+        <img id="stream" src="http://10.240.189.150:1027/video_feed" width="640" height="360" alt="Live Stream Video" />
     </div>
 
     <!-- 카메라 제어 버튼 -->
@@ -42,22 +42,22 @@
             stream.src = ""; // 먼저 스트림을 비웁니다.
             setTimeout(() => {
                 // 다시 스트림을 받아옵니다.
-                stream.src = "http://10.240.189.150:8881/video_feed?" + new Date().getTime();
+                stream.src = "http://10.240.189.150:1027/video_feed?" + new Date().getTime();
             }, 1000);  // 1초 후 다시 시도
         }
 
         // 카메라 제어 기능
         document.getElementById("rotate-left").addEventListener("click", function() {
-            fetch("http://10.240.189.150:8881/camera/rotate/left", { method: "POST" });
+            fetch("http://10.240.189.150:1027/camera/rotate/left", { method: "POST" });
         });
         document.getElementById("rotate-right").addEventListener("click", function() {
-            fetch("http://10.240.189.150:8881/camera/rotate/right", { method: "POST" });
+            fetch("http://10.240.189.150:1027/camera/rotate/right", { method: "POST" });
         });
         document.getElementById("rotate-up").addEventListener("click", function() {
-            fetch("http://10.240.189.150:8881/camera/rotate/up", { method: "POST" });
+            fetch("http://10.240.189.150:1027/camera/rotate/up", { method: "POST" });
         });
         document.getElementById("rotate-down").addEventListener("click", function() {
-            fetch("http://10.240.189.150:8881/camera/rotate/down", { method: "POST" });
+            fetch("http://10.240.189.150:1027/camera/rotate/down", { method: "POST" });
         });
     });
 </script>
