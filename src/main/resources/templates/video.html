@@ -14,17 +14,11 @@
     </div>
 
     <div id="video-list" class="video-list">
-        <!-- 타임리프로 비디오 목록을 동적으로 생성 -->
-    </div>
-</div>
-
-<div id="videoModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <video id="modalVideo" controls>
-            <source src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <ul>
+            <li th:each="video : ${videos}">
+                <a th:href="${video.url}" target="_blank" th:text="${video.name}"></a>
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -32,7 +26,7 @@
 <script th:src="@{/js/token.js}"></script>
 <script th:src="@{/js/modal.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script th:src="@{/js/video.js}"></script> <!-- video.js 추가 -->
+<script th:src="@{/js/video.js}"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -48,8 +42,7 @@
 
         // 날짜에 따른 비디오 목록 불러오기
         function fetchRecordedVideos(date) {
-            // Flask 서버에서 해당 날짜에 맞는 비디오 목록을 가져오는 API 호출
-            fetch(`http://<Raspberry Pi IP>:8080/videos?date=${date}`)
+            fetch(`/videos?date=${date}`)
                 .then(response => response.json())
                 .then(videos => {
                     videoList.innerHTML = ''; // 기존 목록 초기화
@@ -60,7 +53,6 @@
                             const videoItem = document.createElement('div');
                             videoItem.classList.add('video-thumbnail');
                             videoItem.innerHTML = `
-                                <img src="${video.thumbnail}" alt="video thumbnail">
                                 <p>${video.name}</p>
                                 <a href="${video.url}" target="_blank">Watch</a>
                             `;
