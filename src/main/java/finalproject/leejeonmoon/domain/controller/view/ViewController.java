@@ -1,6 +1,7 @@
-package finalproject.leejeonmoon.domain.controller;
+package finalproject.leejeonmoon.domain.controller.view;
 
 import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.service.DeviceService;
 import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-public class MemberViewController {
+public class ViewController {
     private final TokenProvider tokenProvider;
     private final MemberService memberService;
+    private final DeviceService deviceService;
 
-    public MemberViewController(TokenProvider tokenProvider, MemberService memberService) {
+    public ViewController(TokenProvider tokenProvider, MemberService memberService,
+        DeviceService deviceService) {
         this.tokenProvider = tokenProvider;
         this.memberService = memberService;
+        this.deviceService = deviceService;
     }
 
     @GetMapping("/login")
@@ -49,24 +53,6 @@ public class MemberViewController {
     public String video() {
         return "video";
     }
-
-
-//    @GetMapping("/oauthIndex")
-//    public String oauthIndex(Model model, @AuthenticationPrincipal Member member){
-//        model.addAttribute("nickname", member.getNickname());
-//        return "oauthIndex";
-//    }
-
-
-//    @GetMapping("/oauthIndex")
-//    public String oauthIndex(@RequestParam(value = "token", required = false) String token) {
-//        // 토큰이 있을 경우 처리
-//        if (token != null && tokenProvider.validToken(token)) {
-//            Authentication authentication = tokenProvider.getAuthentication(token);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//        }
-//        return "oauthIndex"; // 정상적으로 페이지로 이동
-//    }
 
     @GetMapping("/oauthIndex")
     public String oauthIndex(@RequestParam(value = "token", required = false) String token, Model model) {
@@ -104,39 +90,23 @@ public class MemberViewController {
 
         return "notification";
     }
-
-
-//    @GetMapping("/authenticated")
-//    public String authenticated(Model model) {
-//        // 인증 여부 확인
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        log.info("Authentication object: {}", authentication);
-//        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
-//            // 인증되지 않은 사용자는 로그인 페이지로 리다이렉트
-//            return "redirect:/login";
-//        }
-//        // 인증된 사용자의 정보를 Model에 추가하여 Thymeleaf 템플릿에서 사용 가능
-//        String username = authentication.getName();
-//        model.addAttribute("username", username);
-//        return null;
+//
+//    @GetMapping("/qr")
+//    public String generateqr() {
+//        return "qr";
 //    }
 
-//    @GetMapping("/authenticated")
-//    public String checkAuthentication() {
-//        // 현재 사용자의 인증 정보 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        log.info(""+authentication);
-//        // 인증 확인
-//        if (authentication != null && authentication.isAuthenticated() &&
-//                !(authentication instanceof AnonymousAuthenticationToken)) {
-//            // UsernamePasswordAuthenticationToken이면 인증된 사용자로 간주
-//            return null;
-//        } else {
-//            log.info("인증되지 않은 사용자");
-//            // AnonymousAuthenticationToken이거나 인증되지 않은 경우
-//            return "redirect:/login";
-//        }
+//    /* QR 코드 생성 페이지 */
+//    @GetMapping("/generate")
+//    public String generateQrPage(@RequestParam("deviceCode") String deviceCode, Model model) {
+//        model.addAttribute("deviceCode", deviceCode);
+//        return "generate";
 //    }
-
+//
+//    /* 기기 등록 완료 페이지 */
+//    @GetMapping("/registration-success")
+//    public String registrationSuccessPage() {
+//        return "registration-success";
+//    }
 
 }

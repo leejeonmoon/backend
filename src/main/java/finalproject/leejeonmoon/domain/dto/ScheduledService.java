@@ -1,5 +1,6 @@
 package finalproject.leejeonmoon.domain.dto;
 
+import finalproject.leejeonmoon.domain.dto.response.NotificationRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

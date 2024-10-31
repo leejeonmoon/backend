@@ -1,11 +1,8 @@
 package finalproject.leejeonmoon.domain.service;
 
 import java.io.IOException;
-import java.util.Optional;
 
-import finalproject.leejeonmoon.domain.dto.AlarmNewDataDto;
 import finalproject.leejeonmoon.domain.entity.Member;
-import finalproject.leejeonmoon.domain.repository.AlarmRepository;
 import finalproject.leejeonmoon.domain.repository.EmitterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
