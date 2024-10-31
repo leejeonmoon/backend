@@ -47,6 +47,9 @@ dependencies {
 
     implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.google.zxing:javase:3.4.1'
 }
 
 tasks.named('test') {
