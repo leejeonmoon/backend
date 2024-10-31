@@ -17,7 +17,10 @@ public class Device {
     private Long deviceId;
 
     @Column(nullable = false)
-    private String ddnsUrl; // 라즈베리파이의 DDNS URL
+    private String ddnsUrl;
+
+    @Column(nullable = false)
+    private String macAddress;
 
     private LocalDateTime registeredAt;
 
@@ -25,8 +28,9 @@ public class Device {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Device(String ddnsUrl, Member member) {
+    public Device(String ddnsUrl, String macAddress, Member member) {
         this.ddnsUrl = ddnsUrl;
+        this.macAddress = macAddress;
         this.member = member;
         this.registeredAt = LocalDateTime.now();
     }

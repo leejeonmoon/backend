@@ -20,7 +20,7 @@ public class DeviceService {
 
     public void registerDevice(DeviceInfoDto deviceInfo) {
         Member member = memberService.getCurrentMember();
-        Device device = new Device(deviceInfo.getDdnsUrl(), member);
+        Device device = new Device(deviceInfo.getDdnsUrl(), deviceInfo.getMacAddress(), member);
         deviceRepository.save(device);
     }
 }
