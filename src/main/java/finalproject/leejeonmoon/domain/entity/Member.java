@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,6 +42,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Column(name = "provider")  // OAuth2 사용자인지 구분하기 위한 필드
     private String provider;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Device> devices = new ArrayList<>();
 
     @Column(name = "qr_url", columnDefinition = "TEXT")
     private String qrCodeUrl;

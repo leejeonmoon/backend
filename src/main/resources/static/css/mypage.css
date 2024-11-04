@@ -2,7 +2,7 @@
 .mypage-section {
     width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 100px auto;
     padding: 20px;
     background-color: var(--colors-white);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -12,7 +12,7 @@
 .mypage-section h2 {
     font-size: 24px;
     font-weight: bold;
-    color: var(--colors-heading);
+    color: #2f1893;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -24,25 +24,26 @@
 .user-info h3, .device-management h3, .notification-settings h3 {
     font-size: 18px;
     font-weight: bold;
-    color: var(--colors-heading);
+    color: #2f1893;
     margin-bottom: 10px;
 }
 
 .user-info p, .device-management p, .notification-settings label {
     font-size: 16px;
-    color: var(--colors-text);
+    color: #1e0e62;
     margin: 5px 0;
 }
 
 /* 기기 목록 스타일 */
 .device-management ul {
     list-style-type: none;
+    color: #2f1893;
     padding: 0;
 }
 
 .device-management ul li {
     font-size: 16px;
-    color: var(--colors-text);
+    color: #1e0e62;
     padding: 5px 0;
     border-bottom: 1px solid #f1f1f1;
 }
@@ -55,4 +56,23 @@
 .notification-settings input[type="range"] {
     width: 100%;
     margin-top: 10px;
+}
+
+.register-device-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #38bdf8;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-device-btn:hover {
+  background-color: #0ea5e9;
 }

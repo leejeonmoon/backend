@@ -58,6 +58,12 @@ public class MemberApiController {
         return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
     }
 
+    /* 마이페이지*/
+    @GetMapping("/mypage")
+    public ResponseEntity<?> getMypage(){
+        return ResponseEntity.ok(memberService.getMyPage());
+    }
+
 //    @GetMapping("/generate-qr")
 //    public ResponseEntity<byte[]> generateQrCode(@RequestParam String code) throws Exception {
 //        QRCodeWriter qrCodeWriter = new QRCodeWriter();
