@@ -16,7 +16,7 @@
     <div id="video-list" class="video-list">
         <ul>
             <li th:each="video : ${videos}">
-                <a th:href="${video.url}" target="_blank" th:text="${video.name}"></a>
+                <a th:href="http://3.38.149.191/videos/${video.name}" target="_blank" th:text="${video.name}"></a>
             </li>
         </ul>
     </div>
@@ -54,7 +54,7 @@
                             videoItem.classList.add('video-thumbnail');
                             videoItem.innerHTML = `
                                 <p>${video.name}</p>
-                                <a href="${video.url}" target="_blank">Watch</a>
+                                <a href="http://3.38.149.191/videos/${video.name}" target="_blank">Watch</a>
                             `;
                             videoList.appendChild(videoItem);
                         });

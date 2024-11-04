@@ -54,6 +54,34 @@ public class ViewController {
         return "video";
     }
 
+    @GetMapping("/statistics")
+    public String statistics() {
+        return "statistics";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "mypage";
+    }
+
+
+//    @GetMapping("/oauthIndex")
+//    public String oauthIndex(Model model, @AuthenticationPrincipal Member member){
+//        model.addAttribute("nickname", member.getNickname());
+//        return "oauthIndex";
+//    }
+
+
+//    @GetMapping("/oauthIndex")
+//    public String oauthIndex(@RequestParam(value = "token", required = false) String token) {
+//        // 토큰이 있을 경우 처리
+//        if (token != null && tokenProvider.validToken(token)) {
+//            Authentication authentication = tokenProvider.getAuthentication(token);
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        }
+//        return "oauthIndex"; // 정상적으로 페이지로 이동
+//    }
+
     @GetMapping("/oauthIndex")
     public String oauthIndex(@RequestParam(value = "token", required = false) String token, Model model) {
         // 토큰이 있을 경우 처리
@@ -90,23 +118,39 @@ public class ViewController {
 
         return "notification";
     }
-//
-//    @GetMapping("/qr")
-//    public String generateqr() {
-//        return "qr";
+
+
+//    @GetMapping("/authenticated")
+//    public String authenticated(Model model) {
+//        // 인증 여부 확인
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        log.info("Authentication object: {}", authentication);
+//        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+//            // 인증되지 않은 사용자는 로그인 페이지로 리다이렉트
+//            return "redirect:/login";
+//        }
+//        // 인증된 사용자의 정보를 Model에 추가하여 Thymeleaf 템플릿에서 사용 가능
+//        String username = authentication.getName();
+//        model.addAttribute("username", username);
+//        return null;
 //    }
 
-//    /* QR 코드 생성 페이지 */
-//    @GetMapping("/generate")
-//    public String generateQrPage(@RequestParam("deviceCode") String deviceCode, Model model) {
-//        model.addAttribute("deviceCode", deviceCode);
-//        return "generate";
+//    @GetMapping("/authenticated")
+//    public String checkAuthentication() {
+//        // 현재 사용자의 인증 정보 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        log.info(""+authentication);
+//        // 인증 확인
+//        if (authentication != null && authentication.isAuthenticated() &&
+//                !(authentication instanceof AnonymousAuthenticationToken)) {
+//            // UsernamePasswordAuthenticationToken이면 인증된 사용자로 간주
+//            return null;
+//        } else {
+//            log.info("인증되지 않은 사용자");
+//            // AnonymousAuthenticationToken이거나 인증되지 않은 경우
+//            return "redirect:/login";
+//        }
 //    }
-//
-//    /* 기기 등록 완료 페이지 */
-//    @GetMapping("/registration-success")
-//    public String registrationSuccessPage() {
-//        return "registration-success";
-//    }
+
 
 }

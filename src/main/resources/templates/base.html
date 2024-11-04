@@ -8,6 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/video.css}" />
     <link rel="stylesheet" th:href="@{/css/streaming.css}" />
+    <link rel="stylesheet" th:href="@{/css/report.css}" />
+    <link rel="stylesheet" th:href="@{/css/mypage.css}" />
     <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script th:src="@{/js/modal.js}"></script>
@@ -15,20 +17,21 @@
 <body>
 <header th:fragment="header">
     <div class="logo">
-        <h1>IP CAM 이름/웹 사이트 이름</h1>
+        <img th:src="@{/img/logo.png}" alt="Logo" class="logo-image">
     </div>
     <nav>
         <ul class="menu">
             <li><a th:href="@{/}" th:classappend="${page == 'home'} ? 'active' : ''">Home</a></li>
             <li><a th:href="@{/streaming}" th:classappend="${page == 'streaming'} ? 'active' : ''">Streaming</a></li>
             <li><a th:href="@{/video}" th:classappend="${page == 'video'} ? 'active' : ''">Video</a></li>
-            <li><a th:href="@{/report}" th:classappend="${page == 'report'} ? 'active' : ''">Report</a></li>
+            <li><a th:href="@{/statistics}" th:classappend="${page == 'statistics'} ? 'active' : ''">Statistics</a></li>
         </ul>
     </nav>
     <div class="auth-notification">
         <div class="auth">
-            <!-- Login/Sign Up Button -->
+            <!-- 로그인 및 마이페이지 버튼 -->
             <button class="login-signup" onclick="window.location.href='/login'">Login/SignUp</button>
+            <a href="/mypage" class="mypage-btn" style="display: inline-block; text-align: center;">MyPage</a>
         </div>
         <div class="notification">
             <img th:src="@{/img/notification-bell.svg}" alt="Notification" class="bell-icon" onclick="toggleNotification()">
@@ -38,7 +41,7 @@
                     <p>새로운 알림이 없습니다.</p>
                 </div>
                 <div class="notification-item view-more">
-                    <a th:href="@{/report}">자세히 보기</a>
+                    <a th:href="@{/statistics}">자세히 보기</a>
                 </div>
             </div>
         </div>
@@ -46,12 +49,17 @@
 </header>
 
 <!-- Content Block -->
-<th:block th:replace="${content}"></th:block>
+<main>
+    <div th:replace="${content}"></div>
+</main>
 
 <!-- JavaScript -->
 <script th:src="@{/js/modal.js}"></script>
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- 추가 JavaScript 파일 -->
 <th:block th:replace="${extra_js}"></th:block>
+
 </body>
 </html>
