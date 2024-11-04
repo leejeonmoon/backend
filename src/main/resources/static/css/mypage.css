@@ -1,0 +1,58 @@
+/* MyPage 기본 스타일 */
+.mypage-section {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--colors-white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.mypage-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--colors-heading);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-info, .device-management, .notification-settings {
+    margin-bottom: 20px;
+}
+
+.user-info h3, .device-management h3, .notification-settings h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--colors-heading);
+    margin-bottom: 10px;
+}
+
+.user-info p, .device-management p, .notification-settings label {
+    font-size: 16px;
+    color: var(--colors-text);
+    margin: 5px 0;
+}
+
+/* 기기 목록 스타일 */
+.device-management ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.device-management ul li {
+    font-size: 16px;
+    color: var(--colors-text);
+    padding: 5px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.device-management ul li:last-child {
+    border-bottom: none;
+}
+
+/* 알림 강도 설정 스타일 */
+.notification-settings input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}

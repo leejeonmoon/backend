@@ -50,6 +50,16 @@ public class MemberViewController {
         return "video";
     }
 
+    @GetMapping("/statistics")
+    public String statistics() {
+        return "statistics";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "mypage";
+    }
+
 
 //    @GetMapping("/oauthIndex")
 //    public String oauthIndex(Model model, @AuthenticationPrincipal Member member){

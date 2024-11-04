@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}">
+  <title>My Page</title>
+</head>
+<body>
+<header th:replace="~{base :: header}"></header>
+
+<main class="mypage-section">
+  <h2>MyPage</h2>
+
+  <div class="user-info">
+    <h3>사용자 정보</h3>
+    <p><strong>닉네임:</strong> <span th:text="${nickname}">사용자 닉네임</span></p>
+    <p><strong>구글 계정:</strong> <span th:text="${email}">user@example.com</span></p>
+  </div>
+
+  <div class="device-management">
+    <h3>사용자 기기 관리</h3>
+    <p>등록된 기기 목록:</p>
+    <ul>
+      <li>기기 1</li>
+      <li>기기 2</li>
+      <li>기기 3</li>
+    </ul>
+  </div>
+
+  <div class="notification-settings">
+    <h3>알림 강도 설정</h3>
+    <label for="notification-level">알림 강도:</label>
+    <input type="range" id="notification-level" name="notification-level" min="1" max="10">
+  </div>
+</main>
+
+</body>
+</html>
