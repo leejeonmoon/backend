@@ -2,10 +2,13 @@ package finalproject.leejeonmoon.domain.service;
 
 
 import finalproject.leejeonmoon.domain.dto.request.SignUpRequestDto;
+import finalproject.leejeonmoon.domain.dto.response.MyPageResponseDto;
+import finalproject.leejeonmoon.domain.entity.Device;
 import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.domain.repository.MemberRepository;
 import finalproject.leejeonmoon.global.exception.CustomException;
 import finalproject.leejeonmoon.global.exception.ErrorCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -60,5 +63,16 @@ public class MemberService {
 //        Member member = memberRepository.findByEmail(authentication.getName())
 //                .orElseThrow(() -> new CustomException(ErrorCode.NOT_AUTHENTICATED));
         return findById(1L);
+    }
+
+    public MyPageResponseDto getMyPage() {
+        Member member = getCurrentMember();
+        List<Device> memberDeviceList = member.getDevices(); // 'getDevices()' 메서드는 엔티티에 정의되어 있어야 함
+        // MyPageResponseDto를 생성하여 반환
+        return new MyPageResponseDto(
+            member.getEmail(),
+            member.getNickname(),
+            memberDeviceList
+        );
     }
 }
