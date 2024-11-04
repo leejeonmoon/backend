@@ -1,4 +1,4 @@
-package finalproject.leejeonmoon.domain.dto;
+package finalproject.leejeonmoon.domain.dto.response;
 
 import lombok.Builder;
 

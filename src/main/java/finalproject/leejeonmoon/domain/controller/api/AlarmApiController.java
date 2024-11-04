@@ -1,4 +1,4 @@
-package finalproject.leejeonmoon.domain.controller;
+package finalproject.leejeonmoon.domain.controller.api;
 
 import finalproject.leejeonmoon.domain.service.AlarmService;
 import finalproject.leejeonmoon.domain.service.EmitterService;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
-@RequestMapping("/alarms")
+@RequestMapping("/api/alarms")
 @RequiredArgsConstructor
 public class AlarmApiController {
     private final AlarmService alarmService;
@@ -25,7 +25,7 @@ public class AlarmApiController {
 //    }
 
     /* 알림 구독 */
-    @GetMapping(value = "/api/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> subscribe() {
         return ResponseEntity.ok(emitterService.subscribe());
     }
@@ -37,7 +37,7 @@ public class AlarmApiController {
     }
 
     /* 테스트 알림 생성 */
-    @PostMapping("/api/test")
+    @PostMapping("/test")
     public ResponseEntity<?> createTestAlarm() {
         alarmService.testAlarm();
         return ResponseEntity.ok("Test alarm created successfully");

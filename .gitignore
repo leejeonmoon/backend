@@ -44,3 +44,4 @@ src/main/resources/public/firebase-messaging-sw.js
 src/main/resources/static/js/firebaseInit.js
 src/main/resources/application-deploy.yml
 src/main/resources/application-local.yml
+src/main/resources/application-prod.yml

@@ -1,6 +1,6 @@
 package finalproject.leejeonmoon.domain.service;
 
-import finalproject.leejeonmoon.domain.dto.CreateAccessTokenRequestDto;
+import finalproject.leejeonmoon.domain.dto.request.CreateAccessTokenRequestDto;
 import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
