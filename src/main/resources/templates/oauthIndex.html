@@ -8,15 +8,26 @@
 <body>
 <header th:replace="~{base :: header}"></header>
 
-<!-- 로그인 후 페이지의 메인 콘텐츠 -->
 <div class="content-wrapper">
-    <div class="main-content text-center" style="padding: 20px;">
-        <h2>Start with IP Cam <span th:text="${nickname}"></span></h2>
-        <div class="buttons mt-4">
-            <a href="#" class="btn btn-primary" id="move-video-btn">Move to my video</a>
-            <a href="#" class="btn btn-secondary" id="recorded-video-btn">Recorded video</a>
+    <!-- 알람 리스트 -->
+    <div class="alarm-list">
+        <h3>알람 리스트</h3>
+        <div id="alarm-container">
+            <p>알람 데이터를 불러오는 중...</p>
         </div>
+        <button onclick="manualUpdateAlarms()" class="custom-btn update-btn">
+            <img src="/img/refresh.svg" alt="Reload" class="reload-icon"> 수동 업데이트
+        </button>
     </div>
+
+<div class="main-content">
+    <h2>Start with EyePi</h2>
+    <div class="buttons">
+        <a href="/streaming" class="custom-btn">Move to my video</a>
+        <a href="/video" class="custom-btn">Recorded video</a>
+    </div>
+</div>
+</div>/div>
 </div>
 
 <!-- 스크립트 파일 -->

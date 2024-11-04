@@ -60,7 +60,6 @@ public class MemberViewController {
         return "mypage";
     }
 
-
 //    @GetMapping("/oauthIndex")
 //    public String oauthIndex(Model model, @AuthenticationPrincipal Member member){
 //        model.addAttribute("nickname", member.getNickname());
