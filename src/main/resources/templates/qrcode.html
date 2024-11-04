@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code</title>
+</head>
+<body>
+<h2>Generated QR Code</h2>
+<img id="qr-code" alt="QR Code" />
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const qrImageUrl = sessionStorage.getItem("qrImageUrl");
+    if (qrImageUrl) {
+      document.getElementById("qr-code").src = qrImageUrl;
+      sessionStorage.removeItem("qrImageUrl"); // 이미지를 로드한 후 세션에서 삭제
+    } else {
+      alert("QR 코드 이미지가 없습니다.");
+    }
+  });
+</script>
+</body>
+</html>

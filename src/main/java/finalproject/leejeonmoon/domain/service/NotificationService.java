@@ -3,7 +3,7 @@ package finalproject.leejeonmoon.domain.service;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import finalproject.leejeonmoon.domain.dto.NotificationRequestDto;
+import finalproject.leejeonmoon.domain.dto.response.NotificationRequestDto;
 import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.domain.entity.Notification;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;

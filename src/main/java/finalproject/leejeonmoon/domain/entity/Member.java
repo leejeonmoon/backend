@@ -42,6 +42,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(name = "provider")  // OAuth2 사용자인지 구분하기 위한 필드
     private String provider;
 
+    @Column(name = "qr_url", columnDefinition = "TEXT")
+    private String qrCodeUrl;
+
     @Builder
     public Member(String email, String nickname, String provider) {
         this.email = email;
@@ -58,6 +61,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public Member update(String nickname){
         this.nickname = nickname;
         return this;
+    }
+
+    public void updateQr(String url){
+        this.qrCodeUrl = url;
     }
 
     // 사용자의 id를 반환

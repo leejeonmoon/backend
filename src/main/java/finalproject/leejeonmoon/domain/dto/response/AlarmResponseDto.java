@@ -1,13 +1,9 @@
-package finalproject.leejeonmoon.domain.dto;
+package finalproject.leejeonmoon.domain.dto.response;
 
 import finalproject.leejeonmoon.domain.entity.Alarm;
 import finalproject.leejeonmoon.domain.entity.AlarmType;
-import lombok.Builder;
-import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record AlarmResponseDto(
         Long alarmId,

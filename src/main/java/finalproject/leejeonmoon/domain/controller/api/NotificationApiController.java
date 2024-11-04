@@ -1,6 +1,5 @@
-package finalproject.leejeonmoon.domain.controller;
+package finalproject.leejeonmoon.domain.controller.api;
 
-import org.springframework.http.ResponseEntity;
 import finalproject.leejeonmoon.domain.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

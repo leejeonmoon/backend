@@ -1,7 +1,7 @@
 package finalproject.leejeonmoon.domain.service;
 
 
-import finalproject.leejeonmoon.domain.dto.SignUpRequestDto;
+import finalproject.leejeonmoon.domain.dto.request.SignUpRequestDto;
 import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.domain.repository.MemberRepository;
 import finalproject.leejeonmoon.global.exception.CustomException;
@@ -56,11 +56,9 @@ public class MemberService {
 //    }
     @Transactional(readOnly = true)
     public Member getCurrentMember() throws CustomException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = memberRepository.findByEmail(authentication.getName())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_AUTHENTICATED));
-        return member;
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Member member = memberRepository.findByEmail(authentication.getName())
+//                .orElseThrow(() -> new CustomException(ErrorCode.NOT_AUTHENTICATED));
+        return findById(1L);
     }
-
-
 }

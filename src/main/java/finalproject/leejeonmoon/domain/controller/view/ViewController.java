@@ -1,6 +1,7 @@
-package finalproject.leejeonmoon.domain.controller;
+package finalproject.leejeonmoon.domain.controller.view;
 
 import finalproject.leejeonmoon.domain.entity.Member;
+import finalproject.leejeonmoon.domain.service.DeviceService;
 import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-public class MemberViewController {
+public class ViewController {
     private final TokenProvider tokenProvider;
     private final MemberService memberService;
+    private final DeviceService deviceService;
 
-    public MemberViewController(TokenProvider tokenProvider, MemberService memberService) {
+    public ViewController(TokenProvider tokenProvider, MemberService memberService,
+        DeviceService deviceService) {
         this.tokenProvider = tokenProvider;
         this.memberService = memberService;
+        this.deviceService = deviceService;
     }
 
     @GetMapping("/login")
