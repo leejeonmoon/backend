@@ -11,26 +11,33 @@
 
   <div class="user-info">
     <h3>사용자 정보</h3>
-    <p><strong>닉네임:</strong> <span th:text="${nickname}">사용자 닉네임</span></p>
-    <p><strong>구글 계정:</strong> <span th:text="${email}">user@example.com</span></p>
+    <p><strong>닉네임:</strong> <span>문하영</span></p>
+    <p><strong>구글 계정:</strong> <span>chrimshy0010@gmail.com</span></p>
   </div>
 
   <div class="device-management">
     <h3>사용자 기기 관리</h3>
     <p>등록된 기기 목록:</p>
     <ul>
-      <li>기기 1</li>
-      <li>기기 2</li>
-      <li>기기 3</li>
+      <li>기기 1: device_id - 1, MAC 주소 - d3:3a:dc:dc:1f:7b</li>
     </ul>
+    <a href="/qr" class="register-device-btn">기기 등록</a>
   </div>
 
   <div class="notification-settings">
     <h3>알림 강도 설정</h3>
     <label for="notification-level">알림 강도:</label>
-    <input type="range" id="notification-level" name="notification-level" min="1" max="10">
+    <input type="range" id="notification-level" name="notification-level" min="1" max="10" value="5" oninput="updateNotificationLevel(this.value)">
+    <div class="slider-labels">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+    </div>
   </div>
 </main>
 
+<script>
+    function updateNotificationLevel(value) {
+        document.getElementById('notification-level-value').textContent = value;
+    }
+</script>
 </body>
 </html>
