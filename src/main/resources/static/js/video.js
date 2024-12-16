@@ -1,113 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const today = new Date();
-    const videoList = document.getElementById("video-list");
-    const videoModal = document.getElementById("videoModal");
-    const modalVideo = document.getElementById("modalVideo");
-    const closeModal = document.querySelector(".modal .close");
-    const currentDateElement = document.getElementById("current-date");
-    const datePicker = document.getElementById("date-picker");
-    const selectDateBtn = document.getElementById("select-date-btn");
-
-    const videosPerInterval = 6;
-    const videos = generateFakeVideos(); // 임시로 생성된 비디오 데이터
-
-
-    if (currentDateElement) {
-        currentDateElement.textContent = today.toISOString().split('T')[0];
-    }
-
-
-    flatpickr(datePicker, {
-        defaultDate: today,
+document.addEventListener("DOMContentLoaded", () => {
+    // Initialize Flatpickr
+    const datePicker = flatpickr("#date-picker", {
         dateFormat: "Y-m-d",
-        maxDate: today,
-        appendTo: selectDateBtn.parentNode,
+        defaultDate: "today",
+        maxDate: "today",
         onChange: function(selectedDates, dateStr) {
-            const selectedDate = new Date(dateStr);
-            if (selectedDate > today) {
-                displayNoVideoMessage();
-            } else {
-                selectDateBtn.textContent = dateStr;
-                loadVideosForDate(dateStr);
-            }
+            fetchRecordedVideos(dateStr);
+        },
+        onOpen: function() {
+            document.getElementById('date-picker').style.display = 'block';
+        },
+        onClose: function() {
+            document.getElementById('date-picker').style.display = 'none';
         }
     });
 
-
-
-    selectDateBtn.addEventListener("click", function () {
-        datePicker._flatpickr.open();
+    // Select Date 버튼 클릭 이벤트
+    document.getElementById('select-date-btn').addEventListener('click', function() {
+        datePicker.toggle();
     });
 
+    // Function to fetch videos
+    function fetchRecordedVideos(date) {
+        const videoList = document.getElementById('video-list');
+        videoList.innerHTML = '<div class="error-message">Loading videos...</div>';
 
-    function loadVideosForDate(date) {
-        videoList.innerHTML = "";
-        const filteredVideos = videos.filter(video => video.date === date);
-        if (filteredVideos.length === 0) {
-            displayNoVideoMessage();
-        } else {
-            renderVideos(filteredVideos.slice(0, videosPerInterval));
-        }
-    }
+        fetch(`/videos?date=${date}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(videos => {
+                videoList.innerHTML = '';
 
+                if (!videos || videos.length === 0) {
+                    videoList.innerHTML = '<div class="error-message">No videos found for the selected date.</div>';
+                    return;
+                }
 
-    function renderVideos(videosToShow) {
-        videoList.innerHTML = '';
-        videosToShow.forEach((video, index) => {
-            const videoThumbnail = document.createElement("div");
-            videoThumbnail.classList.add("video-thumbnail");
-            videoThumbnail.setAttribute("data-video-url", video.url);
-            videoThumbnail.innerHTML = `<img src="${video.thumbnail}" alt="video thumbnail"><p>Event ${index + 1}</p>`; // 이벤트 번호 1부터 시작
-            videoThumbnail.addEventListener("click", function () {
-                modalVideo.querySelector("source").src = video.url;
-                modalVideo.load();
-                videoModal.style.display = "flex";
-            });
-            videoList.appendChild(videoThumbnail);
-        });
-    }
-
-
-    closeModal.addEventListener("click", function () {
-        videoModal.style.display = "none";
-        modalVideo.pause();
-    });
-
-    window.addEventListener("click", function (event) {
-        if (event.target == videoModal) {
-            videoModal.style.display = "none";
-            modalVideo.pause();
-        }
-    });
-
-
-    function displayNoVideoMessage() {
-        videoList.innerHTML = "";
-        const noVideoMessage = document.createElement("div");
-        noVideoMessage.classList.add("no-video-message");
-        noVideoMessage.textContent = "No Video";
-        videoList.appendChild(noVideoMessage);
-    }
-
-
-    function generateFakeVideos() {
-        const fakeVideos = [];
-        for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - dayOffset);
-            for (let i = 1; i <= 6; i++) {
-                fakeVideos.push({
-                    id: i,
-                    url: `video${i + dayOffset * 6}.mp4`,
-                    thumbnail: `thumbnail${i + dayOffset * 6}.jpg`,
-                    title: `Event ${i}`,
-                    date: date.toISOString().split('T')[0]
+                videos.forEach(video => {
+                    const videoItem = document.createElement('div');
+                    videoItem.className = 'video-thumbnail';
+                    videoItem.innerHTML = `
+                        <p>${video.name}</p>
+                        <a href="http://3.38.149.191/videos/${video.name}" target="_blank">Watch Video</a>
+                    `;
+                    videoList.appendChild(videoItem);
                 });
-            }
-        }
-        return fakeVideos;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                videoList.innerHTML = '<div class="error-message">Error loading videos. Please try again later.</div>';
+            });
     }
 
-
-    loadVideosForDate(today.toISOString().split('T')[0]);
+    // Load initial videos
+    const today = new Date().toISOString().split('T')[0];
+    fetchRecordedVideos(today);
 });

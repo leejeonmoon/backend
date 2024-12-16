@@ -8,59 +8,61 @@
 <header th:replace="base :: header"></header>
 
 <main class="streaming-section">
-    <h2>Streaming with IP cam: <span th:text="${username}">이름</span></h2>
+    <h2>Streaming with Webcam:</h2>
 
-    <!-- 실시간 이미지 스트림 -->
+    <!-- 웹캠 스트림 -->
     <div class="video-stream">
-        <img id="stream" src="http://10.240.189.150:1027/video_feed" width="640" height="360" alt="Live Stream Video" />
+        <video id="webcam" autoplay playsinline></video>
     </div>
 
-    <!-- 카메라 제어 버튼 -->
+    <!-- 컨트롤 버튼 -->
     <div class="controls">
-        <button id="rotate-left">좌회전</button>
-        <button id="rotate-right">우회전</button>
-        <button id="rotate-up">위회전</button>
-        <button id="rotate-down">아래회전</button>
+        <button id="toggle-webcam" class="control-button">카메라 끄기</button>
     </div>
 </main>
 
-<script th:src="@{/js/streaming.js}"></script>
 <script th:src="@{/js/oauth.js}"></script>
-
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const stream = document.getElementById('stream');
+        document.addEventListener("DOMContentLoaded", () => {
+            const webcamVideo = document.getElementById('webcam');
+            let webcamStream = null;
 
-        // 스트림이 끊기거나 오류가 발생하면 자동으로 다시 요청
-        stream.onerror = function() {
-            console.log("Stream disconnected. Reconnecting...");
-            reconnectStream();
-        };
+            // 웹캠 비율 설정 (16:9)
+            const setVideoSize = () => {
+                const width = Math.min(window.innerWidth * 0.8, 960); // 최대 너비
+                webcamVideo.style.width = width + 'px';
+                webcamVideo.style.height = (width * 9 / 16) + 'px';
+            };
 
-        // 스트림을 다시 받아오는 함수
-        function reconnectStream() {
-            stream.src = ""; // 먼저 스트림을 비웁니다.
-            setTimeout(() => {
-                // 다시 스트림을 받아옵니다.
-                stream.src = "http://10.240.189.150:1027/video_feed?" + new Date().getTime();
-            }, 1000);  // 1초 후 다시 시도
-        }
+            // 초기 크기 설정 및 리사이즈 이벤트 리스너
+            setVideoSize();
+            window.addEventListener('resize', setVideoSize);
 
-        // 카메라 제어 기능
-        document.getElementById("rotate-left").addEventListener("click", function() {
-            fetch("http://10.240.189.150:1027/camera/rotate/left", { method: "POST" });
+            // 웹캠 켜기/끄기 기능
+            const toggleButton = document.getElementById("toggle-webcam");
+            toggleButton.addEventListener("click", async function() {
+                if (!webcamStream) {
+                    try {
+                        webcamStream = await navigator.mediaDevices.getUserMedia({
+                            video: {
+                                aspectRatio: 16/9
+                            },
+                            audio: false
+                        });
+                        webcamVideo.srcObject = webcamStream;
+                        this.textContent = "카메라 끄기";
+                    } catch (err) {
+                        console.error("카메라 접근 오류:", err);
+                        alert("카메라를 시작할 수 없습니다. 카메라 권한을 확인해주세요.");
+                    }
+                } else {
+                    webcamStream.getTracks().forEach(track => track.stop());
+                    webcamVideo.srcObject = null;
+                    webcamStream = null;
+                    this.textContent = "카메라 켜기";
+                }
+            });
         });
-        document.getElementById("rotate-right").addEventListener("click", function() {
-            fetch("http://10.240.189.150:1027/camera/rotate/right", { method: "POST" });
-        });
-        document.getElementById("rotate-up").addEventListener("click", function() {
-            fetch("http://10.240.189.150:1027/camera/rotate/up", { method: "POST" });
-        });
-        document.getElementById("rotate-down").addEventListener("click", function() {
-            fetch("http://10.240.189.150:1027/camera/rotate/down", { method: "POST" });
-        });
-    });
-</script>
-
+    </script>
 </body>
 </html>
