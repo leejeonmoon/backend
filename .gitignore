@@ -47,7 +47,6 @@ leejeonmoon-835a7-firebase-adminsdk-eud8s-06fefe76ca.json
 src/main/resources/leejeonmoon-835a7-firebase-adminsdk-eud8s-06fefe76ca.json
 src/main/resources/templates/notification.html
 src/main/resources/public/firebase-messaging-sw.js
-src/main/resources/static/js/firebaseInit.js
 src/main/resources/application-deploy.yml
 src/main/resources/application-local.yml
 src/main/resources/application-prod.yml
