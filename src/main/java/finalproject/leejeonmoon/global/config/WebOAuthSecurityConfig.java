@@ -76,10 +76,9 @@ public class WebOAuthSecurityConfig {
 
         // 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/firebase-messaging-sw.js").permitAll()
-                        .requestMatchers("/alarms/**", "/api/**", "/notification/**", "/authenticated","/oauthIndex", "/video","/streaming", "/api/token", "/", "/index", "/signup", "/login").permitAll() // 인증 없이 접근 가능
-                        .requestMatchers("/streaming").authenticated() // 로그인한 사용자만 접근 가능
-                        .anyRequest().permitAll() // 그 외 모든 요청은 인증 필요 (이 부분은 필요에 따라 추가 가능)
+            .requestMatchers("/api/alarms", "/api/alarms/**", "/qr", "/qr/**", "/api/token").permitAll() // 인증 없이 접근 가능
+            .requestMatchers("/api/**").authenticated()
+            .anyRequest().authenticated()
         );
 
         // OAuth2 로그인 설정
