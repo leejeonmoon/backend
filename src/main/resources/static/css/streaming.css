@@ -63,3 +63,33 @@ h2 {
     font-size: 24px;
     cursor: pointer;
 }
+.video-stream {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.video-stream video {
+    border-radius: 8px;
+    background-color: #000;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
