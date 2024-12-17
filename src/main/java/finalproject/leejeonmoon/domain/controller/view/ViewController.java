@@ -7,6 +7,7 @@ import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -70,12 +71,16 @@ public class ViewController {
 
             return "video";
         }
+        @Value("${dashboard.url}")
+        private String dashboardUrl;
+
+        @GetMapping("/statistics")
+        public String getStatistics(Model model) {
+            model.addAttribute("dashboardUrl", dashboardUrl);
+            return "statistics";
+        }
     }
 
-    @GetMapping("/statistics")
-    public String statistics() {
-        return "statistics";
-    }
 
     @GetMapping("/mypage")
     public String mypage(Model model) {

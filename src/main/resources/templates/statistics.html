@@ -8,8 +8,9 @@
 
 <main class="report-section">
   <h1>Dashboard Report</h1>
-  <iframe src="http://3.38.149.191:5601/app/dashboards#/view/6d702d80-b082-11ef-b639-4508448ddfc8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Cto%3Anow))&show-top-menu=true&show-query-input=true&show-time-filter=true"
-          height="700" width="1280">
+  <iframe th:src="${dashboardUrl} + '/app/dashboards#/view/6d702d80-b082-11ef-b639-4508448ddfc8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Cto%3Anow))&show-top-menu=true&show-query-input=true&show-time-filter=true'"
+          height="700"
+          width="1280">
   </iframe>
 
   <div class="risk-info-container">
