@@ -1,23 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>QR Code</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}">
+  <title>QR Code Scanner</title>
 </head>
 <body>
-<h2>Generated QR Code</h2>
-<img id="qr-code" alt="QR Code" />
+<header th:replace="~{base :: header}"></header>
+<script src="https://rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
+
+<main class="qr-section">
+  <h2 class="text-center mb-4">QR 코드 스캐너</h2>
+  <div class="scanner-container">
+    <video id="video" width="640" height="480"></video>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <div class="button-container">
+      <button id="startButton" class="control-button">스캔 시작</button>
+      <button id="stopButton" class="control-button" style="display: none;">스캔 중지</button>
+    </div>
+    <div id="output" class="output-message">QR 코드를 카메라에 비춰주세요</div>
+  </div>
+</main>
+
+<style>
+        .qr-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .scanner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        video {
+            border-radius: 8px;
+            background-color: #000;
+            max-width: 100%;
+            height: auto;
+        }
+        .control-button {
+            background-color: #00E5CC;
+            color: #1E0B4B;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .control-button:hover {
+            background-color: #00c4b0;
+        }
+        .output-message {
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+    </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const qrImageUrl = sessionStorage.getItem("qrImageUrl");
-    if (qrImageUrl) {
-      document.getElementById("qr-code").src = qrImageUrl;
-      sessionStorage.removeItem("qrImageUrl"); // 이미지를 로드한 후 세션에서 삭제
-    } else {
-      alert("QR 코드 이미지가 없습니다.");
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            const startButton = document.getElementById('startButton');
+            const stopButton = document.getElementById('stopButton');
+            const outputDiv = document.getElementById('output');
+            let scanning = false;
+
+            startButton.onclick = async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: "environment" }
+                    });
+                    video.srcObject = stream;
+                    video.play();
+                    scanning = true;
+                    startButton.style.display = 'none';
+                    stopButton.style.display = 'block';
+                    scan();
+                } catch (err) {
+                    outputDiv.innerHTML = '⚠️ 카메라를 시작할 수 없습니다.';
+                    console.error(err);
+                }
+            };
+
+            stopButton.onclick = () => {
+                if (video.srcObject) {
+                    video.srcObject.getTracks().forEach(track => track.stop());
+                }
+                scanning = false;
+                startButton.style.display = 'block';
+                stopButton.style.display = 'none';
+                outputDiv.textContent = '스캔이 중지되었습니다.';
+            };
+
+            function scan() {
+                if (!scanning) return;
+
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+
+                    try {
+                        const code = jsQR(imageData.data, imageData.width, imageData.height);
+                        if (code) {
+                            console.log("Found QR code:", code.data);
+                            handleQRCode(code.data);
+                            return;
+                        }
+                    } catch (error) {
+                        console.error("Scanning error:", error);
+                    }
+                }
+                requestAnimationFrame(scan);
+            }
+
+            async function handleQRCode(data) {
+    outputDiv.innerHTML = '✓ QR 코드 인식 성공! 등록 중...';
+    scanning = false;
+
+    try {
+        const response = await fetch('/qr/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ddnsUrl: data + '/video_feed',  // 스트림 엔드포인트 추가
+                macAddress: 'LOCAL-WEBCAM-' + Date.now()
+            })
+        });
+
+        if (response.ok) {
+            outputDiv.innerHTML = '✓ 기기 등록 성공!';
+            setTimeout(() => {
+                window.location.href = '/mypage';
+            }, 2000);
+        } else {
+            throw new Error('등록 실패');
+        }
+    } catch (error) {
+        // ... 에러 처리 코드는 동일
     }
-  });
-</script>
+}
+        });
+    </script>
 </body>
 </html>

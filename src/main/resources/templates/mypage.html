@@ -11,25 +11,42 @@
 
   <div class="user-info">
     <h3>사용자 정보</h3>
-    <p><strong>닉네임:</strong> <span>문하영</span></p>
-    <p><strong>구글 계정:</strong> <span>chrimshy0010@gmail.com</span></p>
+    <p><strong>닉네임:</strong> <span th:text="${member.nickname}">닉네임</span></p>
+    <p><strong>구글 계정:</strong> <span th:text="${member.email}">이메일</span></p>
   </div>
 
   <div class="device-management">
     <h3>사용자 기기 관리</h3>
     <p>등록된 기기 목록:</p>
-    <ul>
-      <li>기기 1: device_id - 1, MAC 주소 - d3:3a:dc:dc:1f:7b</li>
+    <ul th:if="${not #lists.isEmpty(devices)}">
+      <li th:each="device : ${devices}">
+        기기 <span th:text="${deviceStat.count}">1</span>:
+        device_id - <span th:text="${device.ddnsUrl}">ddns_url</span>,
+        MAC 주소 - <span th:text="${device.macAddress}">MAC 주소</span>
+      </li>
     </ul>
-    <a href="/qr" class="register-device-btn">기기 등록</a>
+    <p th:if="${#lists.isEmpty(devices)}" class="no-devices">등록된 기기가 없습니다.</p>
+    <div class="device-buttons">
+      <a href="/qr" class="register-device-btn">QR 생성</a>
+      <a href="/qr-scanner" class="register-device-btn">QR 스캔</a>
+    </div>
   </div>
 
   <div class="notification-settings">
     <h3>알림 강도 설정</h3>
-    <label for="notification-level">알림 강도:</label>
-    <input type="range" id="notification-level" name="notification-level" min="1" max="10" value="5" oninput="updateNotificationLevel(this.value)">
-    <div class="slider-labels">
-      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+    <div class="slider-container">
+      <input type="range"
+             id="notification-level"
+             name="notification-level"
+             min="0"
+             max="2"
+             step="1"
+             value="1">
+      <div class="slider-labels">
+        <span>0</span>
+        <span>1</span>
+        <span>2</span>
+      </div>
     </div>
   </div>
 </main>

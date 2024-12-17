@@ -19,7 +19,7 @@ header {
 }
 
 .logo h1 {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
 }
 
@@ -35,7 +35,7 @@ header {
 .menu li a {
     text-decoration: none;
     color: var(--colors-text);
-    font-size: 16px;
+    font-size: 21px;
     transition: color 0.3s ease;
 }
 

@@ -4,6 +4,12 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+!**/src/resources/static/img/1.png
+!**/src/resources/static/img/2.png
+!**/src/resources/static/img/3.png
+!**/src/resources/static/img/4.png
+!**/src/resources/static/img/5.png
+!**/src/resources/static/img/6.png
 
 ### STS ###
 .apt_generated
@@ -45,3 +51,4 @@ src/main/resources/static/js/firebaseInit.js
 src/main/resources/application-deploy.yml
 src/main/resources/application-local.yml
 src/main/resources/application-prod.yml
+/src/main/resources/static/img/

@@ -6,6 +6,7 @@ import finalproject.leejeonmoon.domain.dto.response.DeviceInfoDto;
 import finalproject.leejeonmoon.domain.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,9 +19,13 @@ public class DeviceService {
     private final MemberService memberService;
     private final DeviceRepository deviceRepository;
 
+
     public void registerDevice(DeviceInfoDto deviceInfo) {
         Member member = memberService.getCurrentMember();
         Device device = new Device(deviceInfo.getDdnsUrl(), deviceInfo.getMacAddress(), member);
         deviceRepository.save(device);
+    }
+    public List<Device> findDevicesByMember(Member member) {
+        return deviceRepository.findAllByMember(member);
     }
 }
