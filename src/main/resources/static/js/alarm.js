@@ -13,27 +13,57 @@ function manualUpdateAlarms() {
 
 // 라즈베리 파이에서 알람 데이터를 가져오는 함수
 function updateAlarms() {
-    // 여기서는 예시로 라즈베리 파이에서 데이터를 가져온다고 가정합니다.
-    // 실제 구현 시에는 AJAX나 Fetch API를 통해 서버와 통신하여 알람 데이터를 가져와야 합니다.
-    fetch('/alarms')
-        .then(response => response.json())
-        .then(data => {
-            const alarmContainer = document.getElementById('alarm-container');
-            alarmContainer.innerHTML = '';
+    const testAlarms = {
+        alarms: [
+            { message: "Security Alert: Possible Dictionary Attack" },
+            { message: "Suspicious Access Attempt Detected" },
+            { message: "Excessive Login Failures Detected" },
+            {message:"Suspicious HTTP POST Request Detected"},
+            {message: "Suspicious Authentication Pattern"},
+            {message: "SSH Brute Force Attempt Detected"},
+            {message: "Malicious SQL Injection"},
+            { message: "Possible Port Scan" },
+            { message: "Suspicious Access Attempt Detected" },
+            { message: "Login Attempts: 10-30 times detected" },
+            {message:"Suspicious HTTP POST Request Detected"},
+            {message: "ICMP Ping Flood Detected"},
+            {message: "SSH Brute Force Attempt Detected"},
+            {message: "Malicious SQL Injection"},
+            { message: "Security Alert: Possible Dictionary Attack" },
+            { message: "Suspicious Access Attempt Detected" },
+            { message: "Login Attempts: 10-30 times detected" },
+            {message:"Suspicious HTTP POST Request Detected"},
+            {message: "ICMP Ping Flood Detected"},
+            {message: "SSH Brute Force Attempt Detected"},
+            {message: "Malicious SQL Injection"}
+        ]
+    };
 
-            if (data.alarms.length === 0) {
-                alarmContainer.innerHTML = '<p>현재 알람이 없습니다.</p>';
-            } else {
-                data.alarms.forEach(alarm => {
-                    const alarmItem = document.createElement('div');
-                    alarmItem.classList.add('alarm-item');
-                    alarmItem.textContent = alarm.message;
-                    alarmContainer.appendChild(alarmItem);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('알람 데이터를 불러오는 중 오류 발생:', error);
-            document.getElementById('alarm-container').innerHTML = '<p>알람 데이터를 불러오는 중 오류가 발생했습니다.</p>';
+    const alarmContainer = document.getElementById('alarm-container');
+    alarmContainer.innerHTML = '';
+
+    if (testAlarms.alarms.length === 0) {
+        alarmContainer.innerHTML = '<p>현재 알람이 없습니다.</p>';
+    } else {
+        testAlarms.alarms.forEach(alarm => {
+            const alarmItem = document.createElement('div');
+            alarmItem.classList.add('alarm-item');
+
+            // 알람 아이콘 추가
+            const icon = document.createElement('img');
+            icon.src = '/img/notification-bell.svg'; // 알람 아이콘 이미지 경로
+            icon.alt = 'Alarm Icon';
+            icon.classList.add('alarm-icon'); // 스타일 적용을 위한 클래스 추가
+
+            // 메시지 텍스트 추가
+            const message = document.createElement('span');
+            message.textContent = alarm.message;
+
+            // 아이콘과 메시지를 alarmItem에 추가
+            alarmItem.appendChild(icon);
+            alarmItem.appendChild(message);
+
+            alarmContainer.appendChild(alarmItem);
         });
+    }
 }

@@ -1,11 +1,13 @@
 package finalproject.leejeonmoon.domain.controller.view;
 
+import finalproject.leejeonmoon.domain.entity.Device;
 import finalproject.leejeonmoon.domain.entity.Member;
 import finalproject.leejeonmoon.domain.service.DeviceService;
 import finalproject.leejeonmoon.domain.service.MemberService;
 import finalproject.leejeonmoon.global.config.jwt.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -45,23 +49,51 @@ public class ViewController {
     }
 
     @GetMapping("/streaming")
-    public String streaming() {
+    public String streaming(Model model) {
+        Member member = memberService.getCurrentMember();
+        List<Device> devices = deviceService.findDevicesByMember(member);
+
+        model.addAttribute("devices", devices);
+        if (!devices.isEmpty()) {
+            Device device = devices.get(0);
+            model.addAttribute("deviceId", device.getDeviceId().toString());
+            model.addAttribute("ddnsUrl", device.getDdnsUrl());
+        }
+
         return "streaming";
     }
+    @Controller
+    public class VideoController {
+        @GetMapping("/video")
+        public String getVideos(Model model) {
+            // 날짜 정보 추가
+            model.addAttribute("currentDate", new Date());
 
-    @GetMapping("/video")
-    public String video() {
-        return "video";
+            return "video";
+        }
+        @Value("${dashboard.url}")
+        private String dashboardUrl;
+
+        @GetMapping("/statistics")
+        public String getStatistics(Model model) {
+            model.addAttribute("dashboardUrl", dashboardUrl);
+            return "statistics";
+        }
     }
 
-    @GetMapping("/statistics")
-    public String statistics() {
-        return "statistics";
-    }
 
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(Model model) {
+        Member member = memberService.getCurrentMember();
+        List<Device> devices = deviceService.findDevicesByMember(member);
+
+        model.addAttribute("member", member);
+        model.addAttribute("devices", devices);
         return "mypage";
+    }
+    @GetMapping("/qr-scanner")
+    public String qrScanner() {
+        return "qrcode";  // templates/qrscanner.html을 가리킴
     }
 
 //    @GetMapping("/oauthIndex")

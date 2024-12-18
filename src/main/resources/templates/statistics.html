@@ -1,16 +1,95 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{base :: head}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head">
   <title>Dashboard Report</title>
 </head>
 <body>
-<header th:replace="~{base :: header}"></header> <!-- base.html의 header 프래그먼트 참조 -->
+<header th:replace="base :: header"></header>
 
 <main class="report-section">
   <h1>Dashboard Report</h1>
+  <iframe th:src="${dashboardUrl} + '/app/dashboards#/view/6d702d80-b082-11ef-b639-4508448ddfc8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Cto%3Anow))&show-top-menu=true&show-query-input=true&show-time-filter=true'"
+          height="700"
+          width="1280">
+  </iframe>
 
-  <iframe src="http://3.38.149.191:5601/app/dashboards#/view/6d702d80-b082-11ef-b639-4508448ddfc8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Cto%3Anow))&show-top-menu=true&show-query-input=true&show-time-filter=true" height="700" width="1280"></iframe>
+  <div class="risk-info-container">
+    <div class="risk-status-card">
+      <div class="risk-header">
+        <h2>Current Risk Level</h2>
+        <span class="risk-badge medium">Medium</span>
+      </div>
+      <div class="recommended-actions">
+        <h3>권장 조치 사항</h3>
+        <div class="action-items">
+          <div class="action-item">
+            <i class="action-icon">🔑</i>
+            <p>비밀번호 변경 필요</p>
+          </div>
+          <div class="action-item">
+            <i class="action-icon">⚡</i>
+            <p>펌웨어 업데이트 필요</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-levels-container">
+      <div class="risk-level-card high">
+        <div class="risk-level-header">
+          <h3>High Risk</h3>
+          <button class="details-btn" onclick="toggleDetails('high-details')">자세히 보기</button>
+        </div>
+        <div id="high-details" class="risk-details">
+          <ul>
+            <li>고위험 수준</li>
+            <li>로그인 실패 30회 이상 감지</li>
+            <li>위험한 공격 패턴 3회 이상 발견</li>
+            <li class="attack-types">
+              주요 공격 유형:
+              <span class="attack-badge">SQL Injection</span>
+              <span class="attack-badge">XSS</span>
+              <span class="attack-badge">File Access</span>
+            </li>
+            <li>IP 차단 조치 권장</li>
+            <li>즉시 보안 업데이트 필요</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="risk-level-card medium">
+        <div class="risk-level-header">
+          <h3>Medium Risk</h3>
+          <button class="details-btn" onclick="toggleDetails('medium-details')">자세히 보기</button>
+        </div>
+        <div id="medium-details" class="risk-details">
+          <ul>
+            <li>저위험 수준</li>
+            <li>로그인 시도 10-30회 감지</li>
+            <li>의심스러운 접근 시도 발견</li>
+            <li>모니터링 강화 권장</li>
+            <li>정기적인 보안 점검 필요</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="risk-level-card low">
+        <div class="risk-level-header">
+          <h3>Low Risk</h3>
+          <button class="details-btn" onclick="toggleDetails('low-details')">자세히 보기</button>
+        </div>
+        <div id="low-details" class="risk-details">
+          <ul>
+            <li>안전 상태</li>
+            <li>정상적인 시스템 운영 중</li>
+            <li>주기적인 모니터링 진행 중</li>
+            <li>예방적 보안 조치 유지</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
-
+<script th:src="@{/js/statistics.js}"></script>
 </body>
 </html>

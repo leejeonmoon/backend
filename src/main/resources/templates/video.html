@@ -8,22 +8,40 @@
 
 <div class="main-content">
     <h2-name>Stored Videos</h2-name>
-
     <div class="date-selector">
         <p>Today's Date: <span th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"></span></p>
         <button id="select-date-btn" class="btn-mint">Select Date</button>
-        <input type="text" id="date-picker" class="flatpickr-input" style="display: none;" readonly>
     </div>
-
-    <div id="video-list" class="video-list">
-        <div th:if="${videos != null and not #lists.isEmpty(videos)}">
-            <div th:each="video : ${videos}" class="video-thumbnail">
-                <p th:text="${video.name}"></p>
-                <a th:href="@{'http://3.38.149.191/videos/' + ${video.name}}" target="_blank">Watch Video</a>
+    <div class="video-grid">
+        <!-- Camera 1 & 2: No Video -->
+        <div th:each="i : ${#numbers.sequence(1, 2)}" class="video-item">
+            <div class="video-container no-video">
+                <div class="no-video-message">
+                    <span>No Video</span>
+                </div>
             </div>
+            <p class="camera-title">Camera [[${i}]]</p>
+            <p class="time-slot" th:with="start=${(i-1)*4},end=${i*4}"
+               th:text="${#strings.length(start) == 1 ? '0' + start : start} + ':00 - ' +
+                    ${#strings.length(end) == 1 ? '0' + end : end} + ':00'"></p>
         </div>
-        <div th:if="${videos == null or #lists.isEmpty(videos)}" class="error-message">
-            No videos found for the selected date.
+
+        <!-- Camera 3-6: Normal Videos -->
+        <div th:each="i : ${#numbers.sequence(3, 6)}" class="video-item">
+            <div class="video-container">
+                <img th:src="@{|/img/${i}.png|}" th:alt="'Camera ' + ${i}">
+                <div class="play-overlay">
+                    <button class="play-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+                            <path fill="white" d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <p class="camera-title">Camera [[${i}]]</p>
+            <p class="time-slot" th:with="start=${(i-1)*4},end=${i*4}"
+               th:text="${#strings.length(start) == 1 ? '0' + start : start} + ':00 - ' +
+                    ${#strings.length(end) == 1 ? '0' + end : end} + ':00'"></p>
         </div>
     </div>
 </div>
