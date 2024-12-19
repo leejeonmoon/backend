@@ -78,7 +78,7 @@ public class WebOAuthSecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
             .requestMatchers("/api/alarms", "/api/alarms/**", "/qr", "/qr/**", "/api/token").permitAll() // 인증 없이 접근 가능
             .requestMatchers("/api/**").authenticated()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         );
 
         // OAuth2 로그인 설정
